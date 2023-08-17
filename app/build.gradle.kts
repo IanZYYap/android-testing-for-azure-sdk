@@ -44,7 +44,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.azure/azure-xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
 
-    // This dependency is to provide javax.xml.stream which Android lacks
-    // https://mvnrepository.com/artifact/stax/stax
-    implementation("stax:stax:1.2.0")
+    // Provides javax.xml.stream which Android lacks.
+    // However, it lacks the newFactory function from
+    // XMLInputFactory and XMLOutputFactory, which is called
+    // by DefaultXMLReader and DefaultXMLWriter in azure-xml.
+    // https://mvnrepository.com/artifact/javax.xml.stream/stax-api
+    implementation("javax.xml.stream:stax-api:1.0-2")
 }
