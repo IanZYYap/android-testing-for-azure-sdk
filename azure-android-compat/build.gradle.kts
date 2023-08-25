@@ -54,5 +54,5 @@ dependencies {
     // artifacts resulted in FactoryConfigurationErrors being thrown on newInstance(), due to
     // com.bea.xml.stream.* being missing.
     // https://mvnrepository.com/artifact/stax/stax
-    implementation ("stax:stax:1.2.0")
+    // implementation ("stax:stax:1.2.0")
 }
