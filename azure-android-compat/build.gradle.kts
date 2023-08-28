@@ -47,6 +47,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.azure/azure-xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
+    // https://mvnrepository.com/artifact/com.azure/azure-core-management
+    implementation("com.azure:azure-core-management:1.11.4")
 
     // StAX provides javax.xml.stream which Android lacks. However, it lacks the newFactory
     // function from XMLInputFactory and XMLOutputFactory, which is called by DefaultXMLReader and
