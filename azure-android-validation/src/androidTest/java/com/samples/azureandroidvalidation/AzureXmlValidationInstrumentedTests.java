@@ -36,15 +36,15 @@ public class AzureXmlValidationInstrumentedTests {
     public void defaultXmlReaderTest() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        try {
+            XmlReader reader = DefaultXmlReader.fromString("");
+            assertNotNull(reader);
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
+        /*assertThrows(NoSuchMethodError.class,() -> {
 
-        assertThrows(NoSuchMethodError.class,() -> {
-            try {
-                XmlReader reader = DefaultXmlReader.fromString("");
-                assertNotNull(reader);
-            } catch (XMLStreamException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        });*/
     }
 
     /**
@@ -57,13 +57,14 @@ public class AzureXmlValidationInstrumentedTests {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertThrows(NoSuchMethodError.class,() -> {
-            try {
-                XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
-                assertNotNull(writer);
-            } catch (XMLStreamException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
+            assertNotNull(writer);
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
+        /*assertThrows(NoSuchMethodError.class,() -> {
+
+        });*/
     }
 }

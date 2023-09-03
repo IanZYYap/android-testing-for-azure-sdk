@@ -40,4 +40,8 @@ dependencies {
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     // https://mvnrepository.com/artifact/stax/stax
     implementation ("stax:stax:1.2.0")
+    // https://mvnrepository.com/artifact/com.azure/azure-core
+    implementation("com.azure:azure-core:1.42.0")
+
+
 }

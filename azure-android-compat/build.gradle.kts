@@ -37,6 +37,14 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
+
+    // For testing Alan's branch in azure-core
+    //implementation(files("libs\\azure-core-1.43.0-beta.1.jar"))
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    //implementation("org.slf4j:slf4j-api:2.0.7")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    //implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -48,8 +56,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.azure/azure-xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     // https://mvnrepository.com/artifact/com.azure/azure-core-management
-    implementation("com.azure:azure-core-management:1.11.4")
+    //implementation("com.azure:azure-core-management:1.11.4")
 
+    implementation("com.azure:azure-core:1.42.0")
     // StAX provides javax.xml.stream which Android lacks. However, it lacks the newFactory
     // function from XMLInputFactory and XMLOutputFactory, which is called by DefaultXMLReader and
     // DefaultXMLWriter in azure-xml. This artifact may be overly general, but more specific
