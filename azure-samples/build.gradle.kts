@@ -40,7 +40,7 @@ dependencies {
     // azure_keyvault
 
     // azure_storage
-
+    implementation("com.azure:azure-storage-blob:12.23.1")
     // azure_identity
 
     // android
