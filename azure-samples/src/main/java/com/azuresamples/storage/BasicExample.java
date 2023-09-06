@@ -3,6 +3,8 @@
 
 package com.azuresamples.storage;
 
+import android.util.Log;
+
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
@@ -29,19 +31,24 @@ public class BasicExample {
      * @throws IOException If an I/O error occurs
      * @throws RuntimeException If the downloaded data doesn't match the uploaded data
      */
+
+    private static final String TAG = "STORAGE";
     public static void main(String[] args) throws IOException {
 
         /*
          * From the Azure portal, get your Storage account's name and account key.
          */
-        String accountName = SampleHelper.getAccountName();
-        String accountKey = SampleHelper.getAccountKey();
+
+
+        String accountName = args[0];
+        String accountKey = args[1];
+
 
         /*
          * Use your Storage account's name and key to create a credential object; this is used to access your account.
          */
         StorageSharedKeyCredential credential = new StorageSharedKeyCredential(accountName, accountKey);
-
+        Log.i(TAG, "credentials created");
         /*
          * From the Azure portal, get your Storage account blob service URL endpoint.
          * The URL typically looks like this:
@@ -68,7 +75,7 @@ public class BasicExample {
          * Create a container in Storage blob account.
          */
         blobContainerClient.create();
-
+        Log.i(TAG, "storageClient Created");
         /*
          * Create a client that references a to-be-created blob in your Azure Storage account's container.
          * This returns a BlockBlobClient object that wraps the blob's endpoint, credential and a request pipeline
@@ -85,7 +92,7 @@ public class BasicExample {
         blobClient.upload(dataStream, data.length());
 
         dataStream.close();
-
+        Log.i(TAG, "HelloWold.txt uploaded");
         /*
          * Download the blob's content to output stream.
          */
@@ -116,7 +123,7 @@ public class BasicExample {
          * List the blob(s) in our container.
          */
         blobContainerClient.listBlobs()
-            .forEach(blobItem -> System.out.println("Blob name: " + blobItem.getName() + ", Snapshot: " + blobItem.getSnapshot()));
+            .forEach(blobItem -> Log.i("STORAGE", "Blob name: " + blobItem.getName() + ", Snapshot: " + blobItem.getSnapshot()));
 
         /*
          * Delete the blob we created earlier.

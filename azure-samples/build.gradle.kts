@@ -26,7 +26,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/*"
+        }
+    }
 }
+
 
 dependencies {
 
@@ -46,6 +52,10 @@ dependencies {
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
+
+    // xml
+    implementation("com.azure:azure-xml:1.0.0-beta.2")
+    implementation ("stax:stax:1.2.0")
 
     // testing
     testImplementation("junit:junit:4.13.2")
