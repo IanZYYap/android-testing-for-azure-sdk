@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
 }
@@ -14,6 +16,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
     }
 
     buildTypes {
@@ -36,6 +42,7 @@ dependencies {
     implementation("com.azure:azure-core-http-netty:1.13.6")
 
     // azure_appconfig
+    implementation("com.azure:azure-data-appconfiguration:1.4.8")
 
     // azure_keyvault
 
