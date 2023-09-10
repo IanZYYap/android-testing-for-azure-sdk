@@ -8,6 +8,7 @@ import android.util.Log;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.specialized.BlockBlobClient;
 import com.azure.storage.common.StorageSharedKeyCredential;
 
@@ -122,17 +123,20 @@ public class BasicExample {
         /*
          * List the blob(s) in our container.
          */
-        blobContainerClient.listBlobs()
-            .forEach(blobItem -> Log.i("STORAGE", "Blob name: " + blobItem.getName() + ", Snapshot: " + blobItem.getSnapshot()));
+        for (BlobItem blob:blobContainerClient.listBlobs()){
+            Log.i(TAG, blob.getName()); //.forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
+        }
 
         /*
          * Delete the blob we created earlier.
          */
         blobClient.delete();
+        Log.i(TAG, "blob deleted");
 
         /*
          * Delete the container we created earlier.
          */
         blobContainerClient.delete();
+        Log.i(TAG, "blob container deleted");
     }
 }

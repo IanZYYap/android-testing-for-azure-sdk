@@ -23,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     packaging {
         resources {
@@ -35,18 +35,17 @@ android {
 
 
 dependencies {
-
+    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
     // azure core
-    implementation("com.azure:azure-core:1.42.0")
-    implementation("com.azure:azure-json:1.1.0")
-    implementation("com.azure:azure-core-http-netty:1.13.6")
-
+    implementation("com.azure:azure-core")
+    implementation("com.azure:azure-json")
+    implementation("com.azure:azure-core-http-netty")
     // azure_appconfig
 
     // azure_keyvault
 
     // azure_storage
-    implementation("com.azure:azure-storage-blob:12.23.1")
+    implementation("com.azure:azure-storage-blob")
     // azure_identity
 
     // android
@@ -61,4 +60,37 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // jackson
+    implementation(project.dependencies.platform("com.fasterxml.jackson:jackson-bom:2.13.5"))
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
+        version {
+            strictly("2.13.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.core:jackson-core") {
+        version{
+            strictly("2.13.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.core:jackson-databind"){
+        version{
+            strictly("2.13.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.core:jackson-annotations"){
+        version{
+            strictly("2.13.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml"){
+        version{
+            strictly("2.13.5")
+        }
+    }
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310"){
+        version{
+            strictly("2.13.5")
+        }
+    }
 }
