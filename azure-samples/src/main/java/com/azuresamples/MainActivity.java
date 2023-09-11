@@ -5,6 +5,11 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.azuresamples.storage.BasicExample;
+import com.azuresamples.appconfiguration.HelloWorld;
+import com.azuresamples.appconfiguration.SecretReferenceConfigurationSettingSample;
+//import com.azure.data.appconfiguration.CreateSnapshot;
+import com.azuresamples.appconfiguration.WatchFeature;
+import com.azuresamples.appconfiguration.ConditionalRequestAsync;
 
 import java.io.IOException;
 
@@ -18,6 +23,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // appconfig sample block
+        HelloWorld.main(appconfigCredentials);
+        WatchFeature.main(appconfigCredentials);
+        //CreateSnapshot.main(appConfigCredentials);
+        SecretReferenceConfigurationSettingSample.main(appconfigCredentials);
+
+        try {
+            ConditionalRequestAsync.main(appconfigCredentials);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // storage-blob sample block
         try {
             BasicExample.main(storageCredentials);
         } catch (IOException e) {

@@ -54,43 +54,11 @@ dependencies {
 
     // xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
-    implementation ("stax:stax:1.2.0")
+    implementation("stax:stax:1.2.0")
 
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // jackson
-    implementation(project.dependencies.platform("com.fasterxml.jackson:jackson-bom:2.13.5"))
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") {
-        version {
-            strictly("2.13.5")
-        }
-    }
-    implementation("com.fasterxml.jackson.core:jackson-core") {
-        version{
-            strictly("2.13.5")
-        }
-    }
-    implementation("com.fasterxml.jackson.core:jackson-databind"){
-        version{
-            strictly("2.13.5")
-        }
-    }
-    implementation("com.fasterxml.jackson.core:jackson-annotations"){
-        version{
-            strictly("2.13.5")
-        }
-    }
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml"){
-        version{
-            strictly("2.13.5")
-        }
-    }
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310"){
-        version{
-            strictly("2.13.5")
-        }
-    }
 }

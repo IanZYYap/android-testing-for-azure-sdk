@@ -123,9 +123,12 @@ public class BasicExample {
         /*
          * List the blob(s) in our container.
          */
-        for (BlobItem blob:blobContainerClient.listBlobs()){
-            Log.i(TAG, blob.getName()); //.forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
+
+        /* This block is causing jackson linkageErrors
+        blobContainerClient.listBlobs()
+            .forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
         }
+        */
 
         /*
          * Delete the blob we created earlier.
