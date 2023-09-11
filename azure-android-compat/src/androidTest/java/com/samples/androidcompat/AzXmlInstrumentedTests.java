@@ -1,19 +1,19 @@
-package com.samples.azureandroidvalidation;
+package com.samples.androidcompat;
+
+import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
 
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.azure.xml.XmlReader;
 import com.azure.xml.XmlWriter;
 import com.azure.xml.implementation.DefaultXmlReader;
 import com.azure.xml.implementation.DefaultXmlWriter;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.ByteArrayOutputStream;
 
@@ -26,7 +26,8 @@ import javax.xml.stream.XMLStreamException;
  * necessary libraries and methods.
  */
 @RunWith(AndroidJUnit4.class)
-public class AzureXmlValidationInstrumentedTests {
+public class AzXmlInstrumentedTests {
+    // TODO: Update comments
     /**
      * Tests whether DefaultXMLReader can make an XmlReader. Will throw NoSuchMethodError because
      * the StAX library is missing XmlInputFactory.newFactory() which is in the JDK, it only has
@@ -42,9 +43,6 @@ public class AzureXmlValidationInstrumentedTests {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
-        /*assertThrows(NoSuchMethodError.class,() -> {
-
-        });*/
     }
 
     /**
@@ -63,8 +61,5 @@ public class AzureXmlValidationInstrumentedTests {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
         }
-        /*assertThrows(NoSuchMethodError.class,() -> {
-
-        });*/
     }
 }

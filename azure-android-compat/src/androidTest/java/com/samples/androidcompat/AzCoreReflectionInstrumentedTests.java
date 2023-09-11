@@ -24,15 +24,7 @@ import static org.junit.Assert.*;
  * test if a new PR could resolve these issues by providing two different ReflectionUtil versions.
  */
 @RunWith(AndroidJUnit4.class)
-public class AzureCoreReflectionUtilsCompatInstrumentedTest {
-    // Test a method from Azure Core Utils that is throwing an exception for Android in some cases
-    /*@Test
-    public void compatReflectionUtilsTest() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        getLookupToUse(null);
-    }*/
-
+public class AzCoreReflectionInstrumentedTests {
     // Tests were run with placeholder credentials but did trigger ExceptionInInitializerError.
     /* Testing issue 1540 at https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540.
      * Results for current azure-core version (1.42.0):

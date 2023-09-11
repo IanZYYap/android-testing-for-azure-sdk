@@ -1,8 +1,5 @@
-import com.android.build.api.dsl.Packaging
-
 plugins {
     id("com.android.application")
-    //id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
 
 android {
@@ -43,31 +40,26 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
-
-
-    //For running existing tests
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    //androidTestImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
-    //androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.3.0")
-    //androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.3.0")
 
-    // For testing Alan's branch in azure-core
-    // Strangely, the first two are already in the core pom.xml but still need to be called
+    // TODO: Set up different builds to avoid constant manual dependency changes
+    /* TODO: Remove these three once confirmed not needed for further ReflectionUtils testing
+    //For testing the alternate PR for ReflectionUtils
+    // The first two are already in the core pom.xml but still need to be called
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.7")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
     // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams
-    implementation("org.reactivestreams:reactive-streams:1.0.4")
+    implementation("org.reactivestreams:reactive-streams:1.0.4")*/
 
-    // TODO: Set up different builds to avoid constant manual dependency changes
     // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
     // https://mvnrepository.com/artifact/com.azure/azure-identity
     implementation("com.azure:azure-identity:1.10.0")
     //implementation(files("libs\\azure-identity-1.11.0-beta.1.jar"))
     // https://mvnrepository.com/artifact/com.azure/azure-core
-    implementation("com.azure:azure-core:1.42.0")
+    implementation("com.azure:azure-core:1.43.0")
     //implementation(files("libs\\azure-core-1.43.0-beta.1.jar"))
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
@@ -84,4 +76,9 @@ dependencies {
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
     //implementation(files("libs\\azure-ai-openai-1.0.0-beta.5.jar"))
 
+    // Needed for Azure XML testing
+    // https://mvnrepository.com/artifact/com.azure/azure-xml
+    implementation("com.azure:azure-xml:1.0.0-beta.2")
+    // https://mvnrepository.com/artifact/stax/stax
+    implementation ("stax:stax:1.2.0")
 }

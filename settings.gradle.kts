@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidCompatAzure"
 include(":azure-android-compat")
-include(":azure-android-validation")
