@@ -47,7 +47,7 @@ dependencies {
     implementation("com.azure:azure-json")
     implementation("com.azure:azure-core-http-netty")
     // azure_appconfig
-    implementation("com.azure:azure-data-appconfiguration:1.4.8")
+    implementation("com.azure:azure-data-appconfiguration")
 
     // azure_keyvault
 
