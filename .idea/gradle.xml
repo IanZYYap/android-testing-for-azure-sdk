@@ -11,7 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/azure-android-compat" />
+            <option value="$PROJECT_DIR$/azure-android-validation" />
+            <option value="$PROJECT_DIR$/azure-samples" />
           </set>
         </option>
       </GradleProjectSettings>
