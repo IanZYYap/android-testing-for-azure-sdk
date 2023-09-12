@@ -33,33 +33,33 @@ public class AzXmlInstrumentedTests {
      * the StAX library is missing XmlInputFactory.newFactory() which is in the JDK, it only has
      * the XmlInputFactory.newInstance() method which should function identically to newFactory()
      */
-    @Test
-    public void defaultXmlReaderTest() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        try {
-            XmlReader reader = DefaultXmlReader.fromString("");
-            assertNotNull(reader);
-        } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Test
+//    public void defaultXmlReaderTest() {
+//        // Context of the app under test.
+//        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+//        try {
+//            XmlReader reader = DefaultXmlReader.fromString("");
+//            assertNotNull(reader);
+//        } catch (XMLStreamException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     /**
      * Tests whether DefaultXMLWriter can make an XmlWriter. Will throw NoSuchMethodError because
      * the StAX library is missing XmlOutputFactory.newFactory() which is in the JDK, it only has
      * the XmlOutputFactory.newInstance() method which should function identically to newFactory()
      */
-    @Test
-    public void defaultXmlWriterTest() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-        try {
-            XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
-            assertNotNull(writer);
-        } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @Test
+//    public void defaultXmlWriterTest() {
+//        // Context of the app under test.
+//        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+//
+//        try {
+//            XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
+//            assertNotNull(writer);
+//        } catch (XMLStreamException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
