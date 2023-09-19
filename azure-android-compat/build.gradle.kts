@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -50,16 +51,16 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation("org.slf4j:slf4j-api:2.0.7")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
-    implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
+    //implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
     // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams
     implementation("org.reactivestreams:reactive-streams:1.0.4")*/
 
     // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
     // https://mvnrepository.com/artifact/com.azure/azure-identity
-    implementation("com.azure:azure-identity:1.10.0")
+    implementation("com.azure:azure-identity")
     //implementation(files("libs\\azure-identity-1.11.0-beta.1.jar"))
     // https://mvnrepository.com/artifact/com.azure/azure-core
-    implementation("com.azure:azure-core:1.43.0")
+    implementation("com.azure:azure-core")
     //implementation(files("libs\\azure-core-1.43.0-beta.1.jar"))
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
@@ -70,7 +71,7 @@ dependencies {
     implementation("com.azure:azure-core-http-netty:1.14.0-beta.1")
     //implementation(files("libs\\azure-core-http-netty-1.14.0-beta.2.jar"))
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    //implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
