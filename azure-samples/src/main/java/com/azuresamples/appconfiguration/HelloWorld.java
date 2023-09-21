@@ -19,7 +19,7 @@ public class HelloWorld {
      * @param args Unused. Arguments to the program.
      */
 
-    private static final String TAG = "HelloWorldOutput";
+    private static final String TAG = "AppconfigHelloWorldOutput";
     public static void main(String[] args) {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.

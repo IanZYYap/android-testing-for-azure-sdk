@@ -18,9 +18,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    packagingOptions {
-        resources.excludes.add("META-INF/*")
-    }
+//    packagingOptions {
+//        resources.excludes.add("META-INF/*")
+//    }
 
     buildTypes {
         release {
@@ -50,10 +50,15 @@ dependencies {
     implementation("com.azure:azure-data-appconfiguration")
 
     // azure_keyvault
+    implementation("com.azure:azure-security-keyvault-secrets")
+    implementation("com.azure:azure-security-keyvault-keys")
+    implementation("com.azure:azure-security-keyvault-certificates")
 
     // azure_storage
     implementation("com.azure:azure-storage-blob")
+
     // azure_identity
+    implementation("com.azure:azure-identity")
 
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -63,9 +68,14 @@ dependencies {
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     implementation("stax:stax:1.2.0")
 
+    // netty
+    //implementation("io.grpc:grpc-okhttp:1.7.0")
+    //implementation("com.squareup.okhttp3:okhttp:3.0.1")
+
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 
 }
