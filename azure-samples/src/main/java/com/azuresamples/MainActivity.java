@@ -27,24 +27,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Thread thread = new Thread(() -> {
+            try {
+                // appconfig sample block
+                HelloWorld.main(appconfigCredentials);
+                WatchFeature.main(appconfigCredentials);
+                //CreateSnapshot.main(appConfigCredentials);
+                SecretReferenceConfigurationSettingSample.main(appconfigCredentials);
 
-        // appconfig sample block
-        HelloWorld.main(appconfigCredentials);
-        WatchFeature.main(appconfigCredentials);
-        //CreateSnapshot.main(appConfigCredentials);
-        SecretReferenceConfigurationSettingSample.main(appconfigCredentials);
+                try {
+                    ConditionalRequestAsync.main(appconfigCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-        try {
-            ConditionalRequestAsync.main(appconfigCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+                // storage-blob sample block
+                try {
+                    BasicExample.main(storageCredentials);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
-        // storage-blob sample block
-        try {
-            BasicExample.main(storageCredentials);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        thread.start();
     }
 }
