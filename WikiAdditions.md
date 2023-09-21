@@ -13,3 +13,4 @@ The following service libraries have known issues with Android:
 - `azure-ai-translation-text`
 - `azure-ai-openai`
 - `azure-identity`
+- `azure-core-http-netty`
