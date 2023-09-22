@@ -73,31 +73,17 @@ dependencies {
     //implementation("com.squareup.okhttp3:okhttp:3.0.1")
 
     // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
-    // https://mvnrepository.com/artifact/com.azure/azure-identity
     implementation("com.azure:azure-identity:1.10.0")
-    //implementation(files("libs\\azure-identity-1.11.0-beta.1.jar"))
-    // https://mvnrepository.com/artifact/com.azure/azure-core
     implementation("com.azure:azure-core:1.43.0")
-    //implementation(files("libs\\azure-core-1.43.0-beta.1.jar"))
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
-    // https://mvnrepository.com/artifact/com.azure/azure-ai-translation-text
     implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1")
-    // implementation(files("libs\\azure-ai-translation-text-1.0.0-beta.2.jar"))
-    // https://mvnrepository.com/artifact/com.azure/azure-core-http-netty
-    implementation("com.azure:azure-core-http-netty:1.14.0-beta.1")
-    //implementation(files("libs\\azure-core-http-netty-1.14.0-beta.2.jar"))
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
-    //implementation(files("libs\\azure-ai-openai-1.0.0-beta.5.jar"))
 
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-
 }
