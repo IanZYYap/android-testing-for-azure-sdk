@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // These are obtained by setting system environment variables
         // on the computer emulating the app
         ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
@@ -69,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
 
 
-                /*try {
+                /* commented out pending key-id being obtained to put in this
+                try {
                     KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }*/
+                }
+                */
 
                 // keyvault-secrets sample block
                 try {

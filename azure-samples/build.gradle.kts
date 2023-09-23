@@ -75,10 +75,6 @@ dependencies {
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     implementation("stax:stax:1.2.0")
 
-    // netty
-    //implementation("io.grpc:grpc-okhttp:1.7.0")
-    //implementation("com.squareup.okhttp3:okhttp:3.0.1")
-
     // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
     implementation("com.azure:azure-identity:1.10.0")
     implementation("com.azure:azure-core:1.43.0")
