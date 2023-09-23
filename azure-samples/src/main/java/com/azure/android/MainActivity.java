@@ -35,76 +35,82 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Thread thread = new Thread(() -> {
+            try {
+                //appconfig sample block
+                HelloWorld.main(appconfigCredentials);
+                WatchFeature.main(appconfigCredentials);
+                //CreateSnapshot.main(appConfigCredentials);
+                SecretReferenceConfigurationSettingSample.main(appconfigCredentials);
 
-        //appconfig sample block
-        HelloWorld.main(appconfigCredentials);
-        WatchFeature.main(appconfigCredentials);
-        //CreateSnapshot.main(appConfigCredentials);
-        SecretReferenceConfigurationSettingSample.main(appconfigCredentials);
+                try {
+                    ConditionalRequestAsync.main(appconfigCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-        try {
-            ConditionalRequestAsync.main(appconfigCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+                //keyvault-keys sample block
+                try {
+                    HelloWorldKeyvaultKeys.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-        //keyvault-keys sample block
-        try {
-            HelloWorldKeyvaultKeys.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        KeyRotationAsyncKeyvaultKeys.main(keyvaultCredentials);
-
-
-        try {
-            KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        // keyvault-secrets sample block
-        try {
-            HelloWorldKeyvaultSecrets.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            ListOperationsAsyncKeyvaultSecrets.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            ManagingDeletedSecretsKeyvaultSecrets.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+                KeyRotationAsyncKeyvaultKeys.main(keyvaultCredentials);
 
 
-        //keyvault-certificates sample block
+                try {
+                    KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-        try {
-            HelloWorldKeyvaultCerificates.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        ListOperationsKeyvaultCerificates.main(keyvaultCredentials);
-        try {
-            ManagingDeletedCertificatesAsyncKeyvaultCerificates.main(keyvaultCredentials);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+                // keyvault-secrets sample block
+                try {
+                    HelloWorldKeyvaultSecrets.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    ListOperationsAsyncKeyvaultSecrets.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    ManagingDeletedSecretsKeyvaultSecrets.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
 
-        // storage-blob sample block
-        try {
-            BasicExample.main(storageCredentials);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                //keyvault-certificates sample block
+
+                try {
+                    HelloWorldKeyvaultCerificates.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                ListOperationsKeyvaultCerificates.main(keyvaultCredentials);
+                try {
+                    ManagingDeletedCertificatesAsyncKeyvaultCerificates.main(keyvaultCredentials);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                // storage-blob sample block
+                try {
+                    BasicExample.main(storageCredentials);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread.start();
     }
 }

@@ -123,7 +123,7 @@ public class BasicExample {
          * List the blob(s) in our container.
          */
 
-        /* This block is causing jackson linkageErrors
+        /* This block is causing the app to hang. 
         blobContainerClient.listBlobs()
             .forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
         }
