@@ -8,6 +8,7 @@ import android.util.Log;
 import com.azure.data.appconfiguration.ConfigurationClient;
 import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 import com.azure.data.appconfiguration.models.ConfigurationSetting;
+import com.azure.identity.ClientSecretCredential;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,20 +17,18 @@ import java.util.stream.Collectors;
 public class WatchFeature {
     /**
      * Runs the sample algorithm and demonstrates how to read configuration setting revision history.
-     *
-     * @param args Unused. Arguments to the program.
      */
 
     private static final String TAG = "WatchFeatureOutput";
-    public static void main(String[] args) {
+    public static void main(String endpoint, ClientSecretCredential credential) {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.
-        String connectionString = args[0];
 
         // Instantiate a client that will be used to call the service.
         ConfigurationClient client = new ConfigurationClientBuilder()
-                                         .connectionString(connectionString)
-                                         .buildClient();
+                .credential(credential)
+                .endpoint(endpoint)
+                .buildClient();
 
         // Prepare a list of watching settings and update one same setting value to the service.
         String prodDBConnectionKey = "prodDBConnection";

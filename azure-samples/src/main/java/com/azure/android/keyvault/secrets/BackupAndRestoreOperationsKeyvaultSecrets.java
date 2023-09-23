@@ -27,12 +27,11 @@ public class BackupAndRestoreOperationsKeyvaultSecrets {
     /**
      * Authenticates with the key vault and shows how to backup and restore secrets in the key vault.
      *
-     * @param args Unused. Arguments to the program.
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      * @throws IOException when writing backup to file is unsuccessful.
      */
-    public static void main(String[] args) throws IOException, InterruptedException, IllegalArgumentException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws IOException, InterruptedException, IllegalArgumentException {
         /* Instantiate a SecretClient that will be used to call the service. Notice that the client is using default
         Azure credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -40,15 +39,11 @@ public class BackupAndRestoreOperationsKeyvaultSecrets {
         To get started, you'll need a URL to an Azure Key Vault. See the README
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-secrets/README.md)
         for links and instructions. */
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
+
 
 
         SecretClient client = new SecretClientBuilder()
-                .vaultUrl(args[0])
+                .vaultUrl(endpoint)
                 .credential(clientSecretCredential)
                 .buildClient();
 

@@ -23,11 +23,10 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
      * Authenticates with the key vault and shows how to list, recover and purge deleted secrets in a soft-delete
      * enabled key vault.
      *
-     * @param args Unused. Arguments to the program.
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      */
-    public static void main(String[] args) throws IllegalArgumentException, InterruptedException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws IllegalArgumentException, InterruptedException {
         /* NOTE: To manage deleted secrets, your key vault needs to have soft-delete enabled. Soft-delete allows deleted
         secrets to be retained for a given retention period (90 days). During this period deleted secrets can be
         recovered and if a secret needs to be permanently deleted then it needs to be purged. */
@@ -39,14 +38,9 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
         To get started, you'll need a URL to an Azure Key Vault. See the README
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-secrets/README.md)
         for links and instructions. */
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
 
         SecretClient client = new SecretClientBuilder()
-                .vaultUrl(args[0])
+                .vaultUrl(endpoint)
                 .credential(clientSecretCredential)
                 .buildClient();
 

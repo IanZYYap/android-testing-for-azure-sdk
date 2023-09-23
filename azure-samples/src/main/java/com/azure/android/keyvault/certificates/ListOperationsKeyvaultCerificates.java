@@ -29,10 +29,9 @@ public class ListOperationsKeyvaultCerificates {
     /**
      * Authenticates with the key vault and shows how to list certificates, certificate issuers and contacts in the key vault.
      *
-     * @param args Unused. Arguments to the program.
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      */
-    public static void main(String[] args) throws IllegalArgumentException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws IllegalArgumentException {
         /* Instantiate a CertificateClient that will be used to call the service. Notice that the client is using
         default Azure credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -40,14 +39,9 @@ public class ListOperationsKeyvaultCerificates {
         To get started, you'll need a URL to an Azure Key Vault. See the README
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-certificates/README.md)
         for links and instructions. */
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
 
         CertificateClient certificateClient = new CertificateClientBuilder()
-                .vaultUrl(args[0])
+                .vaultUrl(endpoint)
                 .credential(clientSecretCredential)
                 .buildClient();
 

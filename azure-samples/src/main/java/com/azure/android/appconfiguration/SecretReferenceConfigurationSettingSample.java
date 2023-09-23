@@ -11,6 +11,7 @@ import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 import com.azure.data.appconfiguration.models.ConfigurationSetting;
 import com.azure.data.appconfiguration.models.SecretReferenceConfigurationSetting;
 import com.azure.data.appconfiguration.models.SettingSelector;
+import com.azure.identity.ClientSecretCredential;
 
 
 /**
@@ -25,13 +26,14 @@ public class SecretReferenceConfigurationSettingSample {
      */
 
     private static final String TAG = "SecretReferenceConfigurationSettingOutput";
-    public static void main(String[] args) {
+    public static void main(String endpoint, ClientSecretCredential credential) {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.
-        String connectionString = args[0];
+
         final ConfigurationClient client = new ConfigurationClientBuilder()
-                                               .connectionString(connectionString)
-                                               .buildClient();
+                .credential(credential)
+                .endpoint(endpoint)
+                .buildClient();
 
         // Name of the key to add to the configuration service.
         final String key = "hello";

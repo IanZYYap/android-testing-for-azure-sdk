@@ -5,6 +5,7 @@ package com.azure.android.storage;
 
 import android.util.Log;
 
+import com.azure.identity.ClientSecretCredential;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
@@ -33,22 +34,9 @@ public class BasicExample {
      */
 
     private static final String TAG = "STORAGE";
-    public static void main(String[] args) throws IOException {
-
-        /*
-         * From the Azure portal, get your Storage account's name and account key.
-         */
+    public static void main(String accountName, ClientSecretCredential credential) throws IOException {
 
 
-        String accountName = args[0];
-        String accountKey = args[1];
-
-
-        /*
-         * Use your Storage account's name and key to create a credential object; this is used to access your account.
-         */
-        StorageSharedKeyCredential credential = new StorageSharedKeyCredential(accountName, accountKey);
-        Log.i(TAG, "credentials created");
         /*
          * From the Azure portal, get your Storage account blob service URL endpoint.
          * The URL typically looks like this:
@@ -59,7 +47,7 @@ public class BasicExample {
          * Create a BlobServiceClient object that wraps the service endpoint, credential and a request pipeline.
          */
         BlobServiceClient storageClient = new BlobServiceClientBuilder().endpoint(endpoint).credential(credential).buildClient();
-
+        Log.i(TAG, "credentials created");
         /*
          * This example shows several common operations just to get you started.
          */
@@ -75,7 +63,7 @@ public class BasicExample {
          * Create a container in Storage blob account.
          */
         blobContainerClient.create();
-        Log.i(TAG, "storageClient Created");
+        Log.i(TAG, "blobContainerClient Created");
         /*
          * Create a client that references a to-be-created blob in your Azure Storage account's container.
          * This returns a BlockBlobClient object that wraps the blob's endpoint, credential and a request pipeline
@@ -126,7 +114,6 @@ public class BasicExample {
         /* This block is causing the app to hang. 
         blobContainerClient.listBlobs()
             .forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
-        }
         */
 
         /*

@@ -8,19 +8,22 @@ android {
     namespace = "com.azure.android"
     compileSdk = 33
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.azure.android"
         minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "AZURE_CLIENT_ID", "\"${System.getenv("AZURE_CLIENT_ID")}\"")
+        buildConfigField("String", "AZURE_CLIENT_SECRET", "\"${System.getenv("AZURE_CLIENT_SECRET")}\"")
+        buildConfigField("String", "AZURE_TENANT_ID", "\"${System.getenv("AZURE_TENANT_ID")}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-//    packagingOptions {
-//        resources.excludes.add("META-INF/*")
-//    }
 
     buildTypes {
         release {
@@ -37,6 +40,10 @@ android {
             excludes += "/META-INF/*"
         }
     }
+    println(System.getenv("AZURE_CLIENT_SECRET"))
+    println(System.getenv("AZURE_CLIENT_ID"))
+    println(System.getenv("AZUE_TENANT_ID"))
+
 }
 
 

@@ -23,11 +23,10 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
     /**
      * Authenticates with the key vault and shows how to asynchronously list, recover and purge deleted certificates in a soft-delete enabled key vault.
      *
-     * @param args Unused. Arguments to the program.
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws InterruptedException {
         /* NOTE: To manage deleted certificates, your key vault needs to have soft-delete enabled. Soft-delete allows
         deleted certificates to be retained for a given retention period (90 days). During this period deleted
         certificates can be recovered and if a certificates needs to be permanently deleted then it needs to be purged.
@@ -40,14 +39,9 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
         To get started, you'll need a URL to an Azure Key Vault. See the README
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-certificates/README.md)
         for links and instructions. */
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
 
         CertificateAsyncClient certificateAsyncClient = new CertificateClientBuilder()
-                .vaultUrl(args[0])
+                .vaultUrl(endpoint)
                 .credential(clientSecretCredential)
                 .buildAsyncClient();
 

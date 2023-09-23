@@ -9,6 +9,7 @@ import android.util.Log;
 import com.azure.data.appconfiguration.ConfigurationAsyncClient;
 import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 import com.azure.data.appconfiguration.models.ConfigurationSetting;
+import com.azure.identity.ClientSecretCredential;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,21 +20,20 @@ public class ConditionalRequestAsync {
     /**
      * Runs the sample algorithm and demonstrates how to add, get, and delete a configuration setting by conditional
      * request asynchronously
-     * @param args Unused. Arguments to the program.
      * @throws InterruptedException when a thread is waiting, sleeping, or otherwise occupied,
      * and the thread is interrupted, either before or during the activity.
      */
 
     private static final String TAG = "ConditionRequestAsyncOutput";
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String endpoint, ClientSecretCredential credential) throws InterruptedException {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.
-        String connectionString = args[0];
 
         // Instantiate a client that will be used to call the service.
         final ConfigurationAsyncClient client = new ConfigurationClientBuilder()
-            .connectionString(connectionString)
-            .buildAsyncClient();
+                .credential(credential)
+                .endpoint(endpoint)
+                .buildAsyncClient();
 
         ConfigurationSetting setting = new ConfigurationSetting().setKey("key").setLabel("label").setValue("value");
 
@@ -45,12 +45,12 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Set config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while setting the setting: " + error));
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(2000);
 
         // If you want to conditionally retrieve the setting, set `ifChanged` to true. If the ETag of the
         // given setting matches the one in the service, then 304 status code with null value returned in the response.
@@ -59,12 +59,12 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Get config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while getting the setting: " + error));
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(2000);
 
         // If you want to conditionally delete the setting, set `ifUnchanged` to true. If the ETag of the
         // given setting matches the one in the service, then the setting is deleted. Otherwise, it is
@@ -73,7 +73,7 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Deleted config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while deleting the setting: " + error));

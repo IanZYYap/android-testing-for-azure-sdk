@@ -23,15 +23,13 @@ public class KeyWrapUnwrapOperationsKeyvaultKeys {
     /**
      * Authenticates with the key vault and shows how to set, get, update and delete a key in the key vault.
      *
-     * @param args Unused. Arguments to the program.
-     *
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      */
 
     private static final String TAG = "KeyWrapUnwrap";
 
-    public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws InterruptedException, IllegalArgumentException {
         /* Instantiate a CryptographyClient that will be used to call the service. Notice that the client is using
         default Azure credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -39,12 +37,6 @@ public class KeyWrapUnwrapOperationsKeyvaultKeys {
         To get started, you'll need a key identifier for a key stored in a key vault. See the README
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-keys/README.md)
         for links and instructions. */
-
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
 
         CryptographyClient cryptoClient = new CryptographyClientBuilder()
             .credential(clientSecretCredential)

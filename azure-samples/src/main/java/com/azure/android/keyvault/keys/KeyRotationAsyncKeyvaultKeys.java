@@ -26,14 +26,12 @@ public class KeyRotationAsyncKeyvaultKeys {
      * Authenticates with the key vault and shows set key rotation policies and manually rotate keys in Key Vault to
      * create a new key version.
      *
-     * @param args Unused. Arguments to the program.
-     *
      * @throws IllegalArgumentException when an invalid key vault endpoint is passed.
      */
 
     private static final String TAG = "KeyRotationAsync";
 
-    public static void main(String[] args) {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws InterruptedException {
         /* Instantiate a KeyAsyncClient that will be used to call the service. Notice that the client is using default
         Azure credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -42,14 +40,8 @@ public class KeyRotationAsyncKeyvaultKeys {
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-keys/README.md)
         for links and instructions. */
 
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
-
         KeyAsyncClient keyAsyncClient = new KeyClientBuilder()
-            .vaultUrl(args[0])
+            .vaultUrl(endpoint)
             .credential(clientSecretCredential)
             .buildAsyncClient();
 
@@ -60,6 +52,9 @@ public class KeyRotationAsyncKeyvaultKeys {
                 Log.i(TAG, String.format("Key created with name: %s, and type: %s%n", originalKey.getName(),
                     originalKey.getKeyType())));
 
+        // give time for key to be created
+        Thread.sleep(10000);
+
         // You can configure its key rotation policy to allow Azure Key Vault to do it automatically under certain
         // conditions. Properties such as timeAfterCreate and timeBeforeExpiry should be defined as an ISO 8601
         // duration. For example, 90 days would be "P90D", 3 months would be "P3M" and 1 year and 10 days would be
@@ -67,12 +62,15 @@ public class KeyRotationAsyncKeyvaultKeys {
         List<KeyRotationLifetimeAction> keyRotationLifetimeActionList = new ArrayList<>();
         KeyRotationLifetimeAction rotateLifetimeAction = new KeyRotationLifetimeAction(KeyRotationPolicyAction.ROTATE)
             .setTimeAfterCreate("P90D"); // Rotate the key after 90 days of its creation.
-
+        Log.i(TAG, "set key to rotate after 90 days");
         keyRotationLifetimeActionList.add(rotateLifetimeAction);
 
         KeyRotationPolicy keyRotationPolicy = new KeyRotationPolicy()
             .setLifetimeActions(keyRotationLifetimeActionList)
             .setExpiresIn("P6M"); // Make any new versions of the key expire 6 months after creation.
+        Log.i(TAG, "set future keys to rotate after 6 months");
+
+        Thread.sleep(2000);
 
         // An object containing the details of the recently updated key rotation policy will be returned by the update
         // method.

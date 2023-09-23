@@ -1,7 +1,7 @@
 //// Copyright (c) Microsoft Corporation. All rights reserved.
 //// Licensed under the MIT License.
 //
-//package com.azuresamples.appconfiguration;
+//package com.azure.android.appconfiguration;
 //
 //import android.util.Log;
 //
@@ -9,6 +9,7 @@
 //import com.azure.data.appconfiguration.ConfigurationClient;
 //import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 //import com.azure.data.appconfiguration.models.ConfigurationSetting;
+//import com.azure.identity.ClientSecretCredential;
 //
 //
 //import java.time.Duration;
@@ -28,15 +29,15 @@
 //
 //    private static final String TAG = "CreateSnapshotOutput";
 //
-//    public static void main(String[] args) {
+//    public static void main(String endpoint, ClientSecretCredential credential) {
 //        // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
 //        // and navigating to "Access Keys" page under the "Settings" section.
-//        String connectionString = args[0];
 //
 //        // Instantiate a client that will be used to call the service.
 //        final ConfigurationClient client = new ConfigurationClientBuilder()
-//                                               .connectionString(connectionString)
-//                                               .buildClient();
+//                .credential(credential)
+//                .endpoint(endpoint)
+//                .buildClient();
 //
 //        Log.i(TAG, "Beginning of synchronous sample...");
 //        // Prepare first setting.
