@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.azuresamples"
+    namespace = "com.azure.android"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.azuresamples"
+        applicationId = "com.azure.android"
         minSdk = 26
         targetSdk = 33
         versionCode = 1
@@ -72,10 +72,18 @@ dependencies {
     //implementation("io.grpc:grpc-okhttp:1.7.0")
     //implementation("com.squareup.okhttp3:okhttp:3.0.1")
 
+    // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
+    implementation("com.azure:azure-identity:1.10.0")
+    implementation("com.azure:azure-core:1.43.0")
+
+    //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
+    implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1")
+
+    //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
+    implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
+
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-
 }
