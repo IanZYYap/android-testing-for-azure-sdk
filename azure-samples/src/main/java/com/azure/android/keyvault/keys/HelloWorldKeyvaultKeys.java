@@ -34,7 +34,7 @@ public class HelloWorldKeyvaultKeys {
 
     private static final String TAG = "KeyvaultHelloWorld";
 
-    public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws InterruptedException, IllegalArgumentException {
         /* Instantiate a KeyClient that will be used to call the service. Notice that the client is using default Azure
         credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -43,14 +43,8 @@ public class HelloWorldKeyvaultKeys {
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-keys/README.md)
         for links and instructions. */
 
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
-
         KeyClient keyClient = new KeyClientBuilder()
-            .vaultUrl(args[0])
+            .vaultUrl(endpoint)
             .credential(clientSecretCredential)
             .buildClient();
 
@@ -101,5 +95,6 @@ public class HelloWorldKeyvaultKeys {
 
         // If the keyvault is soft-delete enabled, then deleted keys need to be purged for permanent deletion.
         keyClient.purgeDeletedKey("HelloCloudRsaKey");
+        Log.i(TAG, "HelloCloudRsaKey purged from vault");
     }
 }

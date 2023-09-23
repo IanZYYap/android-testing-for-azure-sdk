@@ -9,6 +9,7 @@ import android.util.Log;
 import com.azure.data.appconfiguration.ConfigurationAsyncClient;
 import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 import com.azure.data.appconfiguration.models.ConfigurationSetting;
+import com.azure.identity.ClientSecretCredential;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,21 +20,20 @@ public class ConditionalRequestAsync {
     /**
      * Runs the sample algorithm and demonstrates how to add, get, and delete a configuration setting by conditional
      * request asynchronously
-     * @param args Unused. Arguments to the program.
      * @throws InterruptedException when a thread is waiting, sleeping, or otherwise occupied,
      * and the thread is interrupted, either before or during the activity.
      */
 
     private static final String TAG = "ConditionRequestAsyncOutput";
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String endpoint, ClientSecretCredential credential) throws InterruptedException {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.
-        String connectionString = args[0];
 
         // Instantiate a client that will be used to call the service.
         final ConfigurationAsyncClient client = new ConfigurationClientBuilder()
-            .connectionString(connectionString)
-            .buildAsyncClient();
+                .credential(credential)
+                .endpoint(endpoint)
+                .buildAsyncClient();
 
         ConfigurationSetting setting = new ConfigurationSetting().setKey("key").setLabel("label").setValue("value");
 

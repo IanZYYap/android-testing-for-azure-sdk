@@ -8,6 +8,7 @@ import android.util.Log;
 import com.azure.data.appconfiguration.ConfigurationClient;
 import com.azure.data.appconfiguration.ConfigurationClientBuilder;
 import com.azure.data.appconfiguration.models.ConfigurationSetting;
+import com.azure.identity.ClientSecretCredential;
 
 /**
  * Sample demonstrates how to add, get, and delete a configuration setting.
@@ -15,19 +16,17 @@ import com.azure.data.appconfiguration.models.ConfigurationSetting;
 public class HelloWorld {
     /**
      * Runs the sample algorithm and demonstrates how to add, get, and delete a configuration setting.
-     *
-     * @param args Unused. Arguments to the program.
      */
 
     private static final String TAG = "AppconfigHelloWorldOutput";
-    public static void main(String[] args) {
+    public static void main(String endpoint, ClientSecretCredential credential) {
         // The connection string value can be obtained by going to your App Configuration instance in the Azure portal
         // and navigating to "Access Keys" page under the "Settings" section.
-        String connectionString = args[0];
 
         final ConfigurationClient client = new ConfigurationClientBuilder()
-            .connectionString(connectionString)
-            .buildClient();
+                .credential(credential)
+                .endpoint(endpoint)
+                .buildClient();
 
         // Name of the key to add to the configuration service.
         final String key = "hello";

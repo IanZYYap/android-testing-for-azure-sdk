@@ -26,14 +26,12 @@ public class KeyRotationAsyncKeyvaultKeys {
      * Authenticates with the key vault and shows set key rotation policies and manually rotate keys in Key Vault to
      * create a new key version.
      *
-     * @param args Unused. Arguments to the program.
-     *
      * @throws IllegalArgumentException when an invalid key vault endpoint is passed.
      */
 
     private static final String TAG = "KeyRotationAsync";
 
-    public static void main(String[] args) {
+    public static void main(String endpoint, ClientSecretCredential clientSecretCredential) {
         /* Instantiate a KeyAsyncClient that will be used to call the service. Notice that the client is using default
         Azure credentials. For more information on this and other types of credentials, see this document:
         https://docs.microsoft.com/java/api/overview/azure/identity-readme?view=azure-java-stable.
@@ -42,14 +40,8 @@ public class KeyRotationAsyncKeyvaultKeys {
         (https://github.com/Azure/azure-sdk-for-java/blob/main/sdk/keyvault/azure-security-keyvault-keys/README.md)
         for links and instructions. */
 
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(args[1])
-                .clientSecret(args[2])
-                .tenantId(args[3])
-                .build();
-
         KeyAsyncClient keyAsyncClient = new KeyClientBuilder()
-            .vaultUrl(args[0])
+            .vaultUrl(endpoint)
             .credential(clientSecretCredential)
             .buildAsyncClient();
 
