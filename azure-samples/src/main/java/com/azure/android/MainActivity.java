@@ -25,9 +25,6 @@ import com.azure.android.keyvault.secrets.ManagingDeletedSecretsKeyvaultSecrets;
 import com.azure.android.storage.BasicExample;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
-import com.azure.identity.DefaultAzureCredential;
-import com.azure.identity.DefaultAzureCredentialBuilder;
-
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
 
 
-                try {
+                /*try {
                     KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-                }
+                }*/
 
                 // keyvault-secrets sample block
                 try {

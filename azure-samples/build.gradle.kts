@@ -42,7 +42,7 @@ android {
     }
     println(System.getenv("AZURE_CLIENT_SECRET"))
     println(System.getenv("AZURE_CLIENT_ID"))
-    println(System.getenv())
+    println(System.getenv("AZUE_TENANT_ID"))
 
 }
 

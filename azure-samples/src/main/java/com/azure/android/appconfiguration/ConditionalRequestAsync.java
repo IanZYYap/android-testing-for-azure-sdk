@@ -45,12 +45,12 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Set config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while setting the setting: " + error));
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(2000);
 
         // If you want to conditionally retrieve the setting, set `ifChanged` to true. If the ETag of the
         // given setting matches the one in the service, then 304 status code with null value returned in the response.
@@ -59,12 +59,12 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Get config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while getting the setting: " + error));
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(2000);
 
         // If you want to conditionally delete the setting, set `ifUnchanged` to true. If the ETag of the
         // given setting matches the one in the service, then the setting is deleted. Otherwise, it is
@@ -73,7 +73,7 @@ public class ConditionalRequestAsync {
             result -> {
                 final ConfigurationSetting output = result.getValue();
                 final int statusCode = result.getStatusCode();
-                Log.i(TAG, String.format("Status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
+                Log.i(TAG, String.format("Deleted config with status code: %s, Key: %s, Value: %s", statusCode, output.getKey(),
                     output.getValue()));
             },
             error -> Log.e(TAG, "There was an error while deleting the setting: " + error));

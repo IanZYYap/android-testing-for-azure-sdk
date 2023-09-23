@@ -61,8 +61,8 @@ public class HelloWorldKeyvaultKeys {
         // Let's get the RSA key from the key vault.
         KeyVaultKey cloudRsaKey = keyClient.getKey("HelloCloudRsaKey");
 
-        System.out.printf("Key is returned with name %s and type %s \n", cloudRsaKey.getName(),
-            cloudRsaKey.getKeyType());
+        Log.i(TAG, String.format("Key is returned with name %s and type %s \n", cloudRsaKey.getName(),
+            cloudRsaKey.getKeyType()));
 
         // After one year, the RSA key is still required, we need to update the expiry time of the key.
         // The update method can be used to update the expiry attribute of the key.
