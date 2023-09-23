@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         final String keyvaultEndpoint = "https://android-key-vault.vault.azure.net/";
-        final String appconfigEndpoint = "https://android-app-configuration.azconfig.io/";
+        final String appconfigEndpoint = "https://android-app-configuration.azconfig.io";
         final String storageAccountName = "androidazsdkstorage";
         Thread thread = new Thread(() -> {
             try {
