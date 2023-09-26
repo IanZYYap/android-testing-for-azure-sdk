@@ -9,6 +9,8 @@ import com.azure.messaging.servicebus.ServiceBusReceiverAsyncClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import android.util.Log;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,18 +19,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Sample example showing how peek would work.
  */
 public class PeekMessageAsync {
-    String connectionString = System.getenv("AZURE_SERVICEBUS_NAMESPACE_CONNECTION_STRING");
-    String queueName = System.getenv("AZURE_SERVICEBUS_SAMPLE_QUEUE_NAME");
+
+    private static final String TAG = "PeekMessageAsyncOutput";
 
     /**
      * Main method to invoke this demo on how to peek at a message within a Service Bus Queue.
      *
-     * @param args Unused arguments to the program.
+     * @param connectionString
+     * @param queueName
      * @throws InterruptedException If the program is unable to sleep while waiting for the receive to complete.
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String connectionString, String queueName) throws InterruptedException {
         PeekMessageAsync sample = new PeekMessageAsync();
-        sample.run();
+        sample.run(connectionString, queueName);
     }
 
     /**
@@ -37,7 +40,7 @@ public class PeekMessageAsync {
      * @throws InterruptedException If the program is unable to sleep while waiting for the receive to complete.
      */
     @Test
-    public void run() throws InterruptedException {
+    public void run(String connectionString, String queueName) throws InterruptedException {
         AtomicBoolean sampleSuccessful = new AtomicBoolean(false);
         CountDownLatch countdownLatch = new CountDownLatch(1);
 

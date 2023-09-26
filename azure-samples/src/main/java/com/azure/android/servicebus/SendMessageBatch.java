@@ -11,6 +11,8 @@ import com.azure.messaging.servicebus.ServiceBusSenderClient;
 import com.azure.messaging.servicebus.models.CreateMessageBatchOptions;
 import org.junit.jupiter.api.Test;
 
+import android.util.Log;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,24 +21,25 @@ import java.util.List;
  * sender.
  */
 public class SendMessageBatch {
-    String connectionString = System.getenv("AZURE_SERVICEBUS_NAMESPACE_CONNECTION_STRING");
-    String topicName = System.getenv("AZURE_SERVICEBUS_SAMPLE_TOPIC_NAME");
+
+    private static final String TAG = "SendMessageBatchOutput";
 
     /**
      * Main method to invoke this demo on how to send a {@link ServiceBusMessageBatch} to an Azure Service Bus Topic.
      *
-     * @param args Unused arguments to the program.
+     * @param connectionString
+     * @param topicName
      */
-    public static void main(String[] args) {
+    public static void main(String connectionString, String topicName) {
         SendMessageBatch sample = new SendMessageBatch();
-        sample.run();
+        sample.run(connectionString, topicName);
     }
 
     /**
      * This method to invoke this demo on how to send a {@link ServiceBusMessageBatch} to an Azure Service Bus Topic.
      */
     @Test
-    public void run() {
+    public void run(String connectionString, String topicName) {
         List<ServiceBusMessage> testMessages = Arrays.asList(
             new ServiceBusMessage(BinaryData.fromString("Green")),
             new ServiceBusMessage(BinaryData.fromString("Red")),

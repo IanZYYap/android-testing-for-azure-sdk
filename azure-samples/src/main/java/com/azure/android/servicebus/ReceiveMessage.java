@@ -8,6 +8,8 @@ import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusReceivedMessage;
 import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 
+import android.util.Log;
+
 import java.time.Duration;
 
 /**
@@ -17,20 +19,25 @@ import java.time.Duration;
  * Messages <b>must</b> be manually settled.
  */
 public class ReceiveMessage {
+
+    private static final String TAG = "ReceiveMessageOutput";
+
     /**
      * Main method to invoke this demo on how to receive a set of {@link ServiceBusMessage messages} from an Azure
      * Service Bus Queue.
      *
-     * @param args Unused arguments to the program.
+     * @param endPoint
+     * @param sharedAccessKeyName
+     * @param sharedAccessKey
      */
-    public static void main(String[] args) {
+    public static void main(String endPoint, String sharedAccessKeyName, String sharedAccessKey) {
 
         // The connection string value can be obtained by:
         // 1. Going to your Service Bus namespace in Azure Portal.
         // 2. Go to "Shared access policies"
         // 3. Copy the connection string for the "RootManageSharedAccessKey" policy.
-        String connectionString = "Endpoint={fully-qualified-namespace};SharedAccessKeyName={policy-name};"
-            + "SharedAccessKey={key}";
+        String connectionString = "Endpoint=" + endPoint + ";SharedAccessKeyName="+ sharedAccessKeyName + ";"
+            + "SharedAccessKey="+ sharedAccessKey;
 
         // Create a receiver.
         // "<<fully-qualified-namespace>>" will look similar to "{your-namespace}.servicebus.windows.net"

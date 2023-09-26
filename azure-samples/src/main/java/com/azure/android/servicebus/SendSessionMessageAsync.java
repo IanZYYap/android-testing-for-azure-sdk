@@ -11,6 +11,8 @@ import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import android.util.Log;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -19,21 +21,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class SendSessionMessageAsyncSample {
-    String connectionString = System.getenv("AZURE_SERVICEBUS_NAMESPACE_CONNECTION_STRING");
-    String queueName = System.getenv("AZURE_SERVICEBUS_SAMPLE_QUEUE_NAME");
+public class SendSessionMessageAsync {
+
+    private static final String TAG = "SendSessionMessageAsyncOutput";
 
     /**
      * Main method to invoke this demo on how to send and receive a {@link ServiceBusMessage} to and from a
      * session-enabled Azure Service Bus queue.
      *
-     * @param args Unused arguments to the program.
-     *
+     * @param connectionString
+     * @param queueName
      * @throws InterruptedException If the program is unable to sleep while waiting for the operations to complete.
      */
-    public static void main(String[] args) throws InterruptedException {
-        SendSessionMessageAsyncSample sample = new SendSessionMessageAsyncSample();
-        sample.run();
+    public static void main(String connectionString, String queueName) throws InterruptedException {
+        SendSessionMessageAsync sample = new SendSessionMessageAsync();
+        sample.run(connectionString, queueName);
     }
 
     /**
@@ -43,7 +45,7 @@ public class SendSessionMessageAsyncSample {
      * @throws InterruptedException If the program is unable to sleep while waiting for the operations to complete.
      */
     @Test
-    public void run() throws InterruptedException {
+    public void run(String connectionString, String queueName) throws InterruptedException {
         AtomicBoolean sampleSuccessful = new AtomicBoolean(false);
         CountDownLatch countdownLatch = new CountDownLatch(1);
 

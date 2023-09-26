@@ -12,6 +12,8 @@ import com.azure.messaging.servicebus.ServiceBusReceivedMessageContext;
 
 import org.junit.jupiter.api.Test;
 
+import android.util.Log;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,17 +21,18 @@ import java.util.concurrent.TimeUnit;
  * to receive messages.
  */
 public class ServiceBusSessionProcessor {
-    String connectionString = System.getenv("AZURE_SERVICEBUS_NAMESPACE_CONNECTION_STRING");
-    String sessionQueueName = System.getenv("AZURE_SERVICEBUS_SAMPLE_SESSION_QUEUE_NAME");
+
+    private static final String TAG = "ServiceBusSessionProcessorOutput";
 
     /**
      * Main method to start the sample application.
-     * @param args Ignored args.
+     * @param connectionString
+     * @param sessionQueueName
      * @throws InterruptedException If the application is interrupted.
      */
-    public static void main(String[] args) throws InterruptedException {
-        SendSessionMessageAsyncSample sample = new SendSessionMessageAsyncSample();
-        sample.run();
+    public static void main(String connectionString, String sessionQueueName) throws InterruptedException {
+        SendSessionMessageAsync sample = new SendSessionMessageAsync();
+        sample.run(connectionString, sessionQueueName);
     }
 
     /**
@@ -37,7 +40,7 @@ public class ServiceBusSessionProcessor {
      * @throws InterruptedException If the application is interrupted.
      */
     @Test
-    public void run() throws InterruptedException {
+    public void run(String connectionString, String sessionQueueName) throws InterruptedException {
         // The connection string value can be obtained by:
         // 1. Going to your Service Bus namespace in Azure Portal.
         // 2. Go to "Shared access policies"
