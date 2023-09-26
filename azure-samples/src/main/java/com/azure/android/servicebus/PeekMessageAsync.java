@@ -3,6 +3,9 @@
 
 package com.azure.android.servicebus;
 
+import com.azure.messaging.servicebus.ServiceBusClientBuilder;
+import com.azure.messaging.servicebus.ServiceBusReceiverAsyncClient;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

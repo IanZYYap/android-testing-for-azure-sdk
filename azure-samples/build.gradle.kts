@@ -70,6 +70,7 @@ dependencies {
 
     //azure_servicebus
     implementation("com.azure:azure-messaging-servicebus")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -88,6 +89,7 @@ dependencies {
 
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
+
 
     // testing
     testImplementation("junit:junit:4.13.2")
