@@ -83,9 +83,9 @@ public class SendSessionMessageAsync {
         // event has been delivered to the Service queue or topic. It completes with an error if an exception occurred
         // while sending the message.
         sender.sendMessages(messages).subscribe(unused -> System.out.println("Batch sent."),
-            error -> System.err.println("Error occurred while publishing message batch: " + error),
+            error -> Log.e(TAG, "Error occurred while publishing message batch: " + error),
             () -> {
-                System.out.println("Batch send complete.");
+                Log.i(TAG, "Batch send complete.");
                 sampleSuccessful.set(true);
             });
 

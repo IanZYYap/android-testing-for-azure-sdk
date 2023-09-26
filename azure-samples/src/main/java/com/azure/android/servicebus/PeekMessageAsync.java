@@ -63,12 +63,12 @@ public class PeekMessageAsync {
 
         receiver.peekMessage().subscribe(
             message -> {
-                System.out.println("Received Message Id: " + message.getMessageId());
-                System.out.println("Received Message: " + message.getBody().toString());
+                Log.i(TAG, "Received Message Id: " + message.getMessageId());
+                Log.i(TAG, "Received Message: " + message.getBody().toString());
             },
-            error -> System.err.println("Error occurred while receiving message: " + error),
+            error -> Log.e(TAG, "Error occurred while receiving message: " + error),
             () -> {
-                System.out.println("Receiving complete.");
+                Log.i(TAG, "Receiving complete.");
                 sampleSuccessful.set(true);
             });
 

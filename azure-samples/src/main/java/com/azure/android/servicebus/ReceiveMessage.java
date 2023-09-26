@@ -57,7 +57,7 @@ public class ReceiveMessage {
 
             receiver.receiveMessages(5).stream().forEach(message -> {
                 // Process message. The message lock is renewed for up to 1 minute.
-                System.out.printf("Sequence #: %s. Contents: %s%n", message.getSequenceNumber(), message.getBody());
+                Log.i(TAG, String.format("Sequence #: %s. Contents: %s%n", message.getSequenceNumber(), message.getBody()));
 
                 // Messages from the sync receiver MUST be settled explicitly.
                 receiver.complete(message);

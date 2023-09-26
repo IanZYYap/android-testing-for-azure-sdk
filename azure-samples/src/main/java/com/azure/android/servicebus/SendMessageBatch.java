@@ -81,8 +81,8 @@ public class SendMessageBatch {
 
             // Add that message that we couldn't before.
             if (!currentBatch.tryAddMessage(message)) {
-                System.err.printf("Message is too large for an empty batch. Skipping. Max size: %s. Message: %s%n",
-                    currentBatch.getMaxSizeInBytes(), message.getBody().toString());
+                Log.e(TAG, String.format("Message is too large for an empty batch. Skipping. Max size: %s. Message: %s%n",
+                    currentBatch.getMaxSizeInBytes(), message.getBody().toString()));
             }
         }
 
