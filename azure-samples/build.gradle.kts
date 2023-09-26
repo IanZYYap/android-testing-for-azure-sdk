@@ -53,6 +53,7 @@ dependencies {
     implementation("com.azure:azure-core")
     implementation("com.azure:azure-json")
     implementation("com.azure:azure-core-http-okhttp")
+
     // azure_appconfig
     implementation("com.azure:azure-data-appconfiguration")
 
@@ -66,6 +67,9 @@ dependencies {
 
     // azure_identity
     implementation("com.azure:azure-identity")
+
+    //azure_servicebus
+    implementation("com.azure:azure-messaging-servicebus")
 
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
