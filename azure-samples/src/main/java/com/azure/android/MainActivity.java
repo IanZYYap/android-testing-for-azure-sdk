@@ -3,6 +3,7 @@ package com.azure.android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 //import com.azure.data.appconfiguration.implementation.ClientConstants;
 import com.azure.android.appconfiguration.HelloWorld;
@@ -11,6 +12,9 @@ import com.azure.android.appconfiguration.SecretReferenceConfigurationSettingSam
 import com.azure.android.appconfiguration.WatchFeature;
 import com.azure.android.appconfiguration.ConditionalRequestAsync;
 
+import com.azure.android.eventhubs.ConsumeEvents;
+import com.azure.android.eventhubs.EventProcessorClientSample;
+import com.azure.android.eventhubs.PublishEventsWithAzureIdentity;
 import com.azure.android.keyvault.certificates.HelloWorldKeyvaultCerificates;
 import com.azure.android.keyvault.certificates.ListOperationsKeyvaultCerificates;
 import com.azure.android.keyvault.certificates.ManagingDeletedCertificatesAsyncKeyvaultCerificates;
@@ -116,6 +120,18 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                // Eventhubs sample block
+                // "<<fully-qualified-namespace>>" will look similar to "{your-namespace}.servicebus.windows.net"
+                // "<<event-hub-name>>" will be the name of the Event Hub instance you created inside the Event Hubs namespace.
+                // TODO: Get necessary details for eventhubs and uncomment function calls.
+                String[] eventargs = {"<<fully-qualified-namespace>>", "<<event-hub-name>>"};
+                //Log.i("Eventhubs", "Starting ConsumeEvents");
+                //ConsumeEvents.main(eventargs);
+                //Log.i("Eventhubs", "Starting PublishEvents");
+                //PublishEventsWithAzureIdentity.main(eventargs);
+                //Log.i("Eventhubs", "Starting EventProcessorClientSample");
+                //EventProcessorClientSample.main(eventargs);
 
                 finish();
             } catch (Exception e) {
