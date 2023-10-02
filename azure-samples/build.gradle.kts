@@ -86,8 +86,8 @@ dependencies {
     implementation("stax:stax:1.2.0")
 
     // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
-    //implementation("com.azure:azure-identity:1.10.0")
-    //implementation("com.azure:azure-core:1.43.0")
+    implementation("com.azure:azure-identity:1.10.0")
+    implementation("com.azure:azure-core:1.43.0")
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
     implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1"){
@@ -98,6 +98,9 @@ dependencies {
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2"){
         exclude(group = "com.azure", module = "azure-core-http-netty")
     }
+
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("org.slf4j:slf4j-simple:2.0.9")
 
     // testing
     testImplementation("junit:junit:4.13.2")

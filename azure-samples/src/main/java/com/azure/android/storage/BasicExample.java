@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.Locale;
 
 /**
@@ -52,7 +53,7 @@ public class BasicExample {
          * Create a BlobServiceClient object that wraps the service endpoint, credential and a request pipeline.
          */
         BlobServiceClient storageClient = new BlobServiceClientBuilder().endpoint(endpoint).credential(credential).buildClient();
-        Log.i(TAG, "credentials created");
+        Log.i(TAG, String.format("credentials created for %s", storageClient.getAccountName()));
         /*
          * This example shows several common operations just to get you started.
          */
@@ -63,10 +64,16 @@ public class BasicExample {
          * Note that container names require lowercase.
          */
         BlobContainerClient blobContainerClient = storageClient.getBlobContainerClient("myjavacontainerbasic" + System.currentTimeMillis());
+        Log.i(TAG, String.format("Got BlobContainerClient %s", blobContainerClient.getBlobContainerName()));
 
         try {
-            PagedIterable<BlobContainerItem> blobContainerList = storageClient.listBlobContainers(new ListBlobContainersOptions(), Duration.ofMinutes(5));
-            blobContainerList.forEach(blobContainer -> Log.i(TAG, "BlobContainer name: " + blobContainer.getName()));
+            PagedIterable<BlobContainerItem> blobContainerList = storageClient.listBlobContainers(new ListBlobContainersOptions(), Duration.ofMinutes(1));
+            blobContainerList.toString();
+            Iterator<BlobContainerItem> iterator = blobContainerList.iterator();
+            while (iterator.hasNext()) {
+                String temp = iterator.next().getName();
+                Log.i(TAG, temp);
+            }
         } catch (RuntimeException e) {
             Log.i(TAG, "timeout listing blob containers");
         }
@@ -121,23 +128,18 @@ public class BasicExample {
          */
         for (int i = 0; i < 3; i++) {
             String sampleData = "Samples";
-            try {
-                InputStream dataInBlobs = new ByteArrayInputStream(sampleData.getBytes(Charset.defaultCharset()));
-                blobContainerClient.getBlobClient("myblobsforlisting" + System.currentTimeMillis()).getBlockBlobClient()
-                        .upload(dataInBlobs, sampleData.length());
-                dataInBlobs.close();
-            }catch (LinkageError ioe) {
-                Log.i(TAG, "create more blobs failed on iteration " + i);
-            }
+            InputStream dataInBlobs = new ByteArrayInputStream(sampleData.getBytes(Charset.defaultCharset()));
+            blobContainerClient.getBlobClient("myblobsforlisting" + System.currentTimeMillis()).getBlockBlobClient()
+                    .upload(dataInBlobs, sampleData.length());
+            dataInBlobs.close();
         }
 
         /*
          * List the blob(s) in our container.
          */
-        //Thread.sleep(20000);
         // This block is causing the app to hang.
         try {
-            blobContainerClient.listBlobs(new ListBlobsOptions(), Duration.ofSeconds(30))
+            blobContainerClient.listBlobs(new ListBlobsOptions(), Duration.ofSeconds(90))
                     .forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
         } catch (RuntimeException e) {
             Log.i(TAG, "list blobs action exceeded 30 seconds, continuing...");
