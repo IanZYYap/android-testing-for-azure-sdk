@@ -25,6 +25,10 @@ import com.azure.android.keyvault.secrets.ManagingDeletedSecretsKeyvaultSecrets;
 import com.azure.android.storage.BasicExample;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         final String storageAccountName = "androidazsdkstorage";
         Thread thread = new Thread(() -> {
             try {
-
+/*
                 //appconfig sample block
                 HelloWorld.main(appconfigEndpoint, clientSecretCredential);
                 WatchFeature.main(appconfigEndpoint, clientSecretCredential);
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
 
-
+*/
                 /* commented out pending key-id being obtained to put in this
                 try {
                     KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
                 */
-
+/*
                 // keyvault-secrets sample block
                 try {
                     HelloWorldKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-
+*/
                 // storage-blob sample block
                 try {
                     BasicExample.main(storageAccountName, clientSecretCredential);
@@ -124,5 +128,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
+    }
+    public static void appendLog(String text)
+    {
+        File logFile = new File("sdcard/log.txt");
+        if (!logFile.exists())
+        {
+            try
+            {
+                logFile.createNewFile();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        try
+        {
+            // BufferedWriter for performance, true to set append to file flag
+            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
+            buf.append(text);
+            buf.newLine();
+            buf.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
