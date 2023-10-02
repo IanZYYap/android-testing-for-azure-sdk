@@ -1,7 +1,5 @@
 package com.azure.android.compattesting;
 
-//import static com.azure.core.implementation.ReflectionUtils.getConstructorInvoker;
-//import com.azure.core.implementation.ReflectionUtils;
 import com.azure.ai.openai.OpenAIClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.ai.translation.text.TextTranslationClient;

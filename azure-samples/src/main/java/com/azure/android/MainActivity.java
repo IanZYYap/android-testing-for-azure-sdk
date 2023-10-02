@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         final String keyvaultEndpoint = "https://android-key-vault.vault.azure.net/";
         final String appconfigEndpoint = "https://android-app-configuration.azconfig.io";
         final String storageAccountName = "androidazsdkstorage";
+        final String eventhubsNamespace= "android-eventhubs.servicebus.windows.net";
+        final String eventhubsName = "android-eh-instance";
         Thread thread = new Thread(() -> {
             try {
 
@@ -122,16 +124,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // Eventhubs sample block
-                // "<<fully-qualified-namespace>>" will look similar to "{your-namespace}.servicebus.windows.net"
-                // "<<event-hub-name>>" will be the name of the Event Hub instance you created inside the Event Hubs namespace.
-                // TODO: Get necessary details for eventhubs and uncomment function calls.
-                String[] eventargs = {"<<fully-qualified-namespace>>", "<<event-hub-name>>"};
-                //Log.i("Eventhubs", "Starting ConsumeEvents");
-                //ConsumeEvents.main(eventargs);
-                //Log.i("Eventhubs", "Starting PublishEvents");
-                //PublishEventsWithAzureIdentity.main(eventargs);
-                //Log.i("Eventhubs", "Starting EventProcessorClientSample");
-                //EventProcessorClientSample.main(eventargs);
+                String[] eventargs = {eventhubsNamespace, eventhubsName};
+                Log.i("Eventhubs", "Starting ConsumeEvents");
+                ConsumeEvents.main(eventargs, clientSecretCredential);
+                Log.i("Eventhubs", "Starting PublishEvents");
+                PublishEventsWithAzureIdentity.main(eventargs, clientSecretCredential);
+                Log.i("Eventhubs", "Starting EventProcessorClientSample");
+                EventProcessorClientSample.main(eventargs, clientSecretCredential);
 
                 finish();
             } catch (Exception e) {

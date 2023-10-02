@@ -3,6 +3,7 @@
 package com.azure.android.eventhubs;
 
 import com.azure.core.credential.TokenCredential;
+import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.messaging.eventhubs.EventData;
 import com.azure.messaging.eventhubs.EventDataBatch;
@@ -26,18 +27,12 @@ public class PublishEventsWithAzureIdentity {
      *
      * @param args Unused arguments to the program.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args, ClientSecretCredential credential) {
         List<EventData> telemetryEvents = Arrays.asList(
             new EventData("Roast beef".getBytes(UTF_8)),
             new EventData("Cheese".getBytes(UTF_8)),
             new EventData("Tofu".getBytes(UTF_8)),
             new EventData("Turkey".getBytes(UTF_8)));
-
-        // The credential used is DefaultAzureCredential because it combines commonly used credentials
-        // in deployment and development and chooses the credential to used based on its running environment.
-        // More information can be found at: https://learn.microsoft.com/java/api/overview/azure/identity-readme
-        TokenCredential credential = new DefaultAzureCredentialBuilder()
-            .build();
 
         // Create a producer.
         //

@@ -3,6 +3,7 @@
 package com.azure.android.eventhubs;
 
 import com.azure.core.credential.TokenCredential;
+import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.messaging.eventhubs.EventData;
 import com.azure.messaging.eventhubs.EventHubClientBuilder;
@@ -38,13 +39,8 @@ public class ConsumeEvents {
      *
      * @throws InterruptedException The countdown latch was interrupted while waiting for this sample to complete.
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args, ClientSecretCredential credential) throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(NUMBER_OF_EVENTS);
-
-        // The credential used is DefaultAzureCredential because it combines commonly used credentials
-        // in deployment and development and chooses the credential to used based on its running environment.
-        // More information can be found at: https://learn.microsoft.com/java/api/overview/azure/identity-readme
-        TokenCredential tokenCredential = new DefaultAzureCredentialBuilder().build();
 
         // Create a consumer.
         //
@@ -55,7 +51,7 @@ public class ConsumeEvents {
         // "<<event-hub-name>>" will be the name of the Event Hub instance you created inside the Event Hubs namespace.
         EventHubConsumerAsyncClient consumer = new EventHubClientBuilder()
             .credential(args[0], args[1],
-                tokenCredential)
+                    credential)
             .consumerGroup(EventHubClientBuilder.DEFAULT_CONSUMER_GROUP_NAME)
             .buildAsyncConsumerClient();
 
@@ -100,7 +96,7 @@ public class ConsumeEvents {
         // "<<event-hub-name>>" will be the name of the Event Hub instance you created inside the Event Hubs namespace.
         EventHubProducerAsyncClient producer = new EventHubClientBuilder()
             .credential(args[0], args[1],
-                tokenCredential)
+                    credential)
             .buildAsyncProducerClient();
 
         // Because the consumer is only listening to new events, we need to send some events to `firstPartition`.
