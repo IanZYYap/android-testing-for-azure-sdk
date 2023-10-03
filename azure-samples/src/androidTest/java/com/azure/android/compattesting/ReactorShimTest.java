@@ -3,7 +3,7 @@
 
 package com.azure.android.compattesting;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import reactor.core.Disposable;
@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.LongStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -115,7 +115,7 @@ public class ReactorShimTest {
             }
 
             for (Integer batchSize : batchSizes) {
-                assertTrue(batchSize <= maxWindowSize, "Unexpected batch size " + batchSize);
+                assertTrue(batchSize <= maxWindowSize);
             }
 
         } finally {
