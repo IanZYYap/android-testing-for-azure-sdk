@@ -2,9 +2,7 @@
 // Licensed under the MIT License.
 package com.azure.android.eventhubs;
 
-import com.azure.core.credential.TokenCredential;
 import com.azure.identity.ClientSecretCredential;
-import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.messaging.eventhubs.EventData;
 import com.azure.messaging.eventhubs.EventHubClientBuilder;
 import com.azure.messaging.eventhubs.EventHubConsumerAsyncClient;
