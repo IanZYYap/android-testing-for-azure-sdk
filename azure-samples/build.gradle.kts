@@ -46,11 +46,13 @@ configurations{
 }
 
 dependencies {
-    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
-    // azure core
-    implementation("com.azure:azure-core")
-    implementation("com.azure:azure-json")
+    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.17"))
+    // azure core -- specifically declare 1.44.0 to get updated reflectionutils
+    implementation("com.azure:azure-core:1.44.0")
     implementation("com.azure:azure-core-http-okhttp")
+
+    // JSON
+    implementation("com.azure:azure-json")
 
     // azure_appconfig
     implementation("com.azure:azure-data-appconfiguration")
@@ -73,10 +75,6 @@ dependencies {
     // xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     implementation("stax:stax:1.2.0")
-
-    // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
-    implementation("com.azure:azure-identity:1.10.0")
-    implementation("com.azure:azure-core:1.43.0")
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
     implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1")
