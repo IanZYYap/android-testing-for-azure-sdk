@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.android.compattesting;
+package com.azure.android;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +29,10 @@ import com.azure.messaging.eventhubs.implementation.ReactorShim;
  * Tests for {@link ReactorShim}.
  */
 @RunWith(AndroidJUnit4.class)
-public class ReactorShimTest {
+public class EventHubsReactorShimTest {
 
     /**
+     * Ported from the ReactorShim test in azure-messaging-eventhubs, swapped annotations to JUnit4.
      * Test to validate the {@link ReactorShim#windowTimeout(Flux, int, Duration)} facade honor backpressure.
      * <p>
      * Today the ReactorShim (type local to Event Hubs SDK) is always guaranteed to use Reactor 3.4.19 or above, which

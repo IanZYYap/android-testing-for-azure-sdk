@@ -1,16 +1,14 @@
 package com.azure.android;
 
-import static com.azure.android.eventhubs.EventProcessorClientCheckpointing.onEventBatchReceived;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import android.util.Log;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.azure.android.eventhubs.EventProcessorClientCheckpointing;
 import com.azure.android.eventhubs.SampleCheckpointStore;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
@@ -26,6 +24,7 @@ import com.azure.messaging.eventhubs.EventHubProperties;
 import com.azure.messaging.eventhubs.EventProcessorClient;
 import com.azure.messaging.eventhubs.EventProcessorClientBuilder;
 import com.azure.messaging.eventhubs.models.ErrorContext;
+import com.azure.messaging.eventhubs.models.EventBatchContext;
 import com.azure.messaging.eventhubs.models.EventContext;
 import com.azure.messaging.eventhubs.models.EventPosition;
 import com.azure.messaging.eventhubs.models.PartitionContext;
@@ -39,7 +38,9 @@ import org.junit.runner.RunWith;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -51,7 +52,7 @@ import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 
 @RunWith(AndroidJUnit4.class)
-public class EventHubsTests {
+public class EventHubsSampleTests {
     /**
      * The following tests are Event Hubs samples ported directly, with assertions added to ensure
      * that they will fail instrumented tests rather than simply logging errors and passing tests.
@@ -213,17 +214,14 @@ public class EventHubsTests {
         producer.enqueueEvents(events, sendOptions);
         producer.close();
     }
-
+    // For PublishEventsBufferedProducer.
     private static void onSuccess(SendBatchSucceededContext succeededContext) {
         final List<EventData> events = StreamSupport.stream(succeededContext.getEvents().spliterator(), false)
                 .collect(Collectors.toList());
+        assertNotNull(events);
     }
 
-    /**
-     * Method invoked when a batch could not be published to an Event Hub.
-     *
-     * @param failedContext The context around the failure.
-     */
+    //For PublishEventsBufferedProducer. Invoked when a batch could not be published to an Event Hub
     private static void onFailed(SendBatchFailedContext failedContext) {
         final List<EventData> events = StreamSupport.stream(failedContext.getEvents().spliterator(), false)
                 .collect(Collectors.toList());
@@ -284,43 +282,65 @@ public class EventHubsTests {
         eventProcessorClient.stop();
     }
 
+    // TODO: Add assertions for this
     @Test
     public void EventProcessorClientCheckpointingTest() throws InterruptedException {
         final int NUMBER_OF_EVENTS_BEFORE_CHECKPOINTING = 200;
         final int MAX_BATCH_SIZE = 50;
         Consumer<ErrorContext> processError = errorContext -> {
-            fail(String.format("Error while processing %s, %s, %s, %s", errorContext.getPartitionContext().getEventHubName(),
+            fail(String.format("Error while processing %s, %s, %s, %s",
+                    errorContext.getPartitionContext().getEventHubName(),
                     errorContext.getPartitionContext().getConsumerGroup(),
                     errorContext.getPartitionContext().getPartitionId(),
                     errorContext.getThrowable().getMessage()));
         };
 
-
-        // Create an EventProcessorClient that processes 50 events in a batch or waits up to a maximum of 30 seconds
-        // before processing any available events up to that point. The batch could be empty if no events are received
-        // within that 30 seconds window.
+        // Create an EventProcessorClient that processes 50 events in a batch or waits up to a
+        // maximum of 30 seconds before processing any available events up to that point. The batch
+        // could be empty if no events are received within that 30 seconds window.
         //
         EventProcessorClient eventProcessorClient = new EventProcessorClientBuilder()
                 .consumerGroup(EventHubClientBuilder.DEFAULT_CONSUMER_GROUP_NAME)
                 .credential(eventhubsNamespace, eventhubsName,
                         clientSecretCredential)
                 .processEventBatch(
-                        batchContext -> onEventBatchReceived(batchContext, NUMBER_OF_EVENTS_BEFORE_CHECKPOINTING),
+                        batchContext -> onEventBatchReceived(batchContext,
+                                NUMBER_OF_EVENTS_BEFORE_CHECKPOINTING),
                         MAX_BATCH_SIZE, Duration.ofSeconds(30))
                 .processError(processError)
                 .checkpointStore(new SampleCheckpointStore())
                 .buildEventProcessorClient();
 
+        assertNotNull(eventProcessorClient);
+        assertNotNull(eventProcessorClient.getIdentifier());
+
         eventProcessorClient.start();
 
         // Continue to perform other tasks while the processor is running in the background.
         //
-        // eventProcessorClient.start() is a non-blocking call, the program will proceed to the next line of code after
-        // setting up and starting the processor.
-        Thread.sleep(TimeUnit.MINUTES.toMillis(10));
-
+        // eventProcessorClient.start() is a non-blocking call, the program will proceed to the next
+        // line of code after setting up and starting the processor.
+        Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+        assertTrue(eventProcessorClient.isRunning());
 
         eventProcessorClient.stop();
+        assertFalse(eventProcessorClient.isRunning());
+    }
 
+    /**
+     * Creates or gets and delegates a {@link EventProcessorClientCheckpointing.SamplePartitionProcessor}
+     * to take care of processing and updating the checkpoint if needed.
+     *
+     * @param batchContext Events to process.
+     * @param numberOfEventsBeforeCheckpointing Number of events to process before checkpointing.
+     */
+    public static void onEventBatchReceived(EventBatchContext batchContext, int numberOfEventsBeforeCheckpointing) {
+        final String partitionId = batchContext.getPartitionContext().getPartitionId();
+        final Map<String, EventProcessorClientCheckpointing.SamplePartitionProcessor> SAMPLE_PARTITION_PROCESSOR_MAP = new HashMap<>();
+
+        final EventProcessorClientCheckpointing.SamplePartitionProcessor samplePartitionProcessor = SAMPLE_PARTITION_PROCESSOR_MAP.computeIfAbsent(
+                partitionId, key -> new EventProcessorClientCheckpointing.SamplePartitionProcessor(key, numberOfEventsBeforeCheckpointing));
+        assertNotNull(samplePartitionProcessor);
+        samplePartitionProcessor.processEventBatch(batchContext);
     }
 }

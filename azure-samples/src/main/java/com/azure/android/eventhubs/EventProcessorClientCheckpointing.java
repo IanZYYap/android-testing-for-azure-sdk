@@ -19,24 +19,6 @@ import java.util.Map;
  * of events. However, the main method has been refactored into an instrumented test.
  */
 public class EventProcessorClientCheckpointing {
-    private static final Map<String, SamplePartitionProcessor> SAMPLE_PARTITION_PROCESSOR_MAP = new HashMap<>();
-
-    /**
-     * Creates or gets and delegates a {@link SamplePartitionProcessor} to take care of processing and updating the
-     * checkpoint if needed.
-     *
-     * @param batchContext Events to process.
-     * @param numberOfEventsBeforeCheckpointing Number of events to process before checkpointing.
-     */
-    public static void onEventBatchReceived(EventBatchContext batchContext, int numberOfEventsBeforeCheckpointing) {
-        final String partitionId = batchContext.getPartitionContext().getPartitionId();
-
-        final SamplePartitionProcessor samplePartitionProcessor = SAMPLE_PARTITION_PROCESSOR_MAP.computeIfAbsent(
-            partitionId, key -> new SamplePartitionProcessor(key, numberOfEventsBeforeCheckpointing));
-
-        samplePartitionProcessor.processEventBatch(batchContext);
-    }
-
     /**
      * Class keeps track of the number of events processed for each partition and checkpoints when at least
      * {@code numberOfEventsBeforeCheckpointing} has been processed.
@@ -45,7 +27,6 @@ public class EventProcessorClientCheckpointing {
      * used.
      */
     public static final class SamplePartitionProcessor {
-        private final Logger logger;
         private final String partitionId;
         private final int numberOfEventsBeforeCheckpointing;
 
@@ -54,9 +35,6 @@ public class EventProcessorClientCheckpointing {
         public SamplePartitionProcessor(String partitionId, int numberOfEventsBeforeCheckpointing) {
             this.partitionId = partitionId;
             this.numberOfEventsBeforeCheckpointing = numberOfEventsBeforeCheckpointing;
-
-            final String loggerName = SamplePartitionProcessor.class + partitionId;
-            this.logger = LoggerFactory.getLogger(loggerName);
         }
 
         /**
@@ -65,7 +43,7 @@ public class EventProcessorClientCheckpointing {
          *
          * @param eventBatchContext Batch of events to process.
          */
-        private void processEventBatch(EventBatchContext eventBatchContext) {
+        public void processEventBatch(EventBatchContext eventBatchContext) {
 
             // There's nothing to process.
             if (eventBatchContext.getEvents().isEmpty()) {
@@ -75,8 +53,9 @@ public class EventProcessorClientCheckpointing {
             final String partitionId = eventBatchContext.getPartitionContext().getPartitionId();
 
             for (EventData event : eventBatchContext.getEvents()) {
-                /*Log.i(TAG, String.format("Processing event: Partition id = %s; sequence number = %d; body = %s",
-                    partitionId, event.getSequenceNumber(), event.getBodyAsString()));*/
+                String TAG = "EventProcessorClientCheckpointing";
+                Log.i(TAG, String.format("Processing event: Partition id = %s; sequence number = %d; body = %s",
+                    partitionId, event.getSequenceNumber(), event.getBodyAsString()));
             }
 
             eventsProcessed = eventsProcessed + eventBatchContext.getEvents().size();
