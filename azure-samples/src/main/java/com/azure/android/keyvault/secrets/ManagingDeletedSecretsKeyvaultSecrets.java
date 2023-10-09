@@ -63,7 +63,7 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
 
         PollResponse<DeletedSecret> deletedBankSecretPollResponse = deletedBankSecretPoller.poll();
 
-        Log.i(TAG, String.format("Deleted Date %s" + deletedBankSecretPollResponse.getValue().getDeletedOn().toString()));
+        Log.i(TAG, String.format("Deleted Date %s", deletedBankSecretPollResponse.getValue().getDeletedOn().toString()));
         Log.i(TAG, String.format("Deleted Secret's Recovery Id %s", deletedBankSecretPollResponse.getValue().getRecoveryId()));
 
         // The secret is being deleted on the server.
@@ -76,7 +76,7 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
 
         PollResponse<KeyVaultSecret> recoverSecretResponse = recoverSecretPoller.poll();
 
-        Log.i(TAG, String.format("Recovered Key Name %s" + recoverSecretResponse.getValue().getName()));
+        Log.i(TAG, String.format("Recovered Key Name %s", recoverSecretResponse.getValue().getName()));
         Log.i(TAG, String.format("Recovered Key's Id %s", recoverSecretResponse.getValue().getId()));
 
         // The secret is being recovered on the server.
@@ -88,7 +88,7 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
             client.beginDeleteSecret("BankAccountPassword");
         PollResponse<DeletedSecret> deletedBankPwdSecretPollResponse = deletedBankPwdSecretPoller.poll();
 
-        Log.i(TAG, String.format("Deleted Date %s" + deletedBankPwdSecretPollResponse.getValue().getDeletedOn().toString()));
+        Log.i(TAG, String.format("Deleted Date %s", deletedBankPwdSecretPollResponse.getValue().getDeletedOn().toString()));
         Log.i(TAG, String.format("Deleted Secret's Recovery Id %s",
             deletedBankPwdSecretPollResponse.getValue().getRecoveryId()));
 
@@ -99,7 +99,7 @@ public class ManagingDeletedSecretsKeyvaultSecrets {
             client.beginDeleteSecret("StorageAccountPassword");
         PollResponse<DeletedSecret> deletedStorageSecretPollResponse = deletedStorageSecretPoller.poll();
 
-        Log.i(TAG, String.format("Deleted Date  %s" + deletedStorageSecretPollResponse.getValue().getDeletedOn().toString()));
+        Log.i(TAG, String.format("Deleted Date  %s", deletedStorageSecretPollResponse.getValue().getDeletedOn().toString()));
         Log.i(TAG, String.format("Deleted Secret's Recovery Id %s", deletedStorageSecretPollResponse.getValue().getRecoveryId()));
 
         // The secret is being deleted on the server.

@@ -74,8 +74,8 @@ public class HelloWorldKeyvaultSecrets {
             secretClient.beginDeleteSecret("BankAccountPassword");
         PollResponse<DeletedSecret> deletedBankSecretPollResponse = deletedBankSecretPoller.poll();
 
-        Log.i(TAG, "Deleted Date %s" + deletedBankSecretPollResponse.getValue().getDeletedOn().toString());
-        Log.i(TAG, String.format("Deleted Secret's Recovery Id %s", deletedBankSecretPollResponse.getValue().getRecoveryId()));
+        Log.i(TAG, "Deleted Date " + deletedBankSecretPollResponse.getValue().getDeletedOn().toString());
+        Log.i(TAG, "Deleted Secret's Recovery Id " + deletedBankSecretPollResponse.getValue().getRecoveryId());
 
         // Secret is being deleted on the server.
         deletedBankSecretPoller.waitForCompletion();

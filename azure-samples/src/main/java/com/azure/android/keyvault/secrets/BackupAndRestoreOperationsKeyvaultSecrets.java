@@ -70,7 +70,7 @@ public class BackupAndRestoreOperationsKeyvaultSecrets {
         PollResponse<DeletedSecret>  pollResponse = deletedStorageSecretPoller.poll();
         DeletedSecret deletedStorageSecret = pollResponse.getValue();
 
-        Log.i(TAG, String.format("Deleted Date %s" + deletedStorageSecret.getDeletedOn().toString()));
+        Log.i(TAG, String.format("Deleted Date %s", deletedStorageSecret.getDeletedOn().toString()));
         Log.i(TAG, String.format("Deleted Secret's Recovery Id %s", deletedStorageSecret.getRecoveryId()));
 
         // Secret is being deleted on server.
