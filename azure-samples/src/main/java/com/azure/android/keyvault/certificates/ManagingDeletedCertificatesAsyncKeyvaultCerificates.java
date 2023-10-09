@@ -3,6 +3,8 @@
 
 package com.azure.android.keyvault.certificates;
 
+import android.util.Log;
+
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
 import com.azure.security.keyvault.certificates.CertificateAsyncClient;
@@ -20,6 +22,7 @@ import java.util.Map;
  * Sample demonstrates how to asynchronously list, recover and purge deleted certificates in a soft-delete enabled key vault.
  */
 public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
+    private final static String TAG = "DelCertAsync";
     /**
      * Authenticates with the key vault and shows how to asynchronously list, recover and purge deleted certificates in a soft-delete enabled key vault.
      *
@@ -57,10 +60,10 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
 
         certificateAsyncClient.beginCreateCertificate("certificateName", policy, true, tags)
             .subscribe(pollResponse -> {
-                System.out.println("---------------------------------------------------------------------------------");
-                System.out.println(pollResponse.getStatus());
-                System.out.println(pollResponse.getValue().getStatus());
-                System.out.println(pollResponse.getValue().getStatusDetails());
+                Log.i(TAG, "---------------------------------------------------------------------------------");
+                Log.i(TAG, String.valueOf(pollResponse.getStatus()));
+                Log.i(TAG, pollResponse.getValue().getStatus());
+                Log.i(TAG, pollResponse.getValue().getStatusDetails());
             });
 
         Thread.sleep(22000);
@@ -68,9 +71,9 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
         // The certificate is no longer needed, need to delete it from the key vault.
         certificateAsyncClient.beginDeleteCertificate("certificateName")
             .subscribe(pollResponse -> {
-                System.out.println("Delete Status: " + pollResponse.getStatus().toString());
-                System.out.println("Delete Certificate Name: " + pollResponse.getValue().getName());
-                System.out.println("Certificate Delete Date: " + pollResponse.getValue().getDeletedOn().toString());
+                Log.i(TAG, "Delete Status: " + pollResponse.getStatus().toString());
+                Log.i(TAG, "Delete Certificate Name: " + pollResponse.getValue().getName());
+                Log.i(TAG, "Certificate Delete Date: " + pollResponse.getValue().getDeletedOn().toString());
             });
 
         // To ensure the certificate is deleted server-side.
@@ -80,9 +83,9 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
         // A deleted certificate can only be recovered if the key vault is soft-delete enabled.
         certificateAsyncClient.beginRecoverDeletedCertificate("certificateName")
             .subscribe(pollResponse -> {
-                System.out.println("Recovery Status: " + pollResponse.getStatus().toString());
-                System.out.println("Recover Certificate Name: " + pollResponse.getValue().getName());
-                System.out.println("Recover Certificate Id: " + pollResponse.getValue().getId());
+                Log.i(TAG, "Recovery Status: " + pollResponse.getStatus().toString());
+                Log.i(TAG, "Recover Certificate Name: " + pollResponse.getValue().getName());
+                Log.i(TAG, "Recover Certificate Id: " + pollResponse.getValue().getId());
             });
 
         // To ensure the certificate is recovered server-side.
@@ -91,9 +94,9 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
         // The certificate is no longer needed, need to delete it from the key vault.
         certificateAsyncClient.beginDeleteCertificate("certificateName")
             .subscribe(pollResponse -> {
-                System.out.println("Delete Status: " + pollResponse.getStatus().toString());
-                System.out.println("Delete Certificate Name: " + pollResponse.getValue().getName());
-                System.out.println("Certificate Delete Date: " + pollResponse.getValue().getDeletedOn().toString());
+                Log.i(TAG, "Delete Status: " + pollResponse.getStatus().toString());
+                Log.i(TAG, "Delete Certificate Name: " + pollResponse.getValue().getName());
+                Log.i(TAG, "Certificate Delete Date: " + pollResponse.getValue().getDeletedOn().toString());
             });
 
         // To ensure the certificate is deleted server-side.
@@ -101,15 +104,15 @@ public class ManagingDeletedCertificatesAsyncKeyvaultCerificates {
 
         // You can list all the deleted and non-purged certificates, assuming key vault is soft-delete enabled.
         certificateAsyncClient.listDeletedCertificates()
-            .subscribe(deletedCertificateResponse ->  System.out.printf("Deleted Certificate's Recovery Id %s %n",
-                deletedCertificateResponse.getRecoveryId()));
+            .subscribe(deletedCertificateResponse ->  Log.i(TAG, String.format("Deleted Certificate's Recovery Id %s %n",
+                deletedCertificateResponse.getRecoveryId())));
 
         Thread.sleep(15000);
 
         // If the keyvault is soft-delete enabled, then deleted certificates need to be purged for permanent deletion.
         certificateAsyncClient.purgeDeletedCertificateWithResponse("certificateName")
             .subscribe(purgeResponse ->
-                System.out.printf("Purge Status response %d %n", purgeResponse.getStatusCode()));
+                    Log.i(TAG, String.format("Purge Status response %d %n", purgeResponse.getStatusCode())));
 
         // To ensure the certificate is purged server-side.
         Thread.sleep(15000);

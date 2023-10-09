@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
 plugins {
     id("com.android.application")
 }
@@ -37,22 +35,27 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/*"
+            pickFirsts += "/META-INF/*"
         }
     }
-    println(System.getenv("AZURE_CLIENT_SECRET"))
-    println(System.getenv("AZURE_CLIENT_ID"))
-    println(System.getenv("AZUE_TENANT_ID"))
-
 }
-
+configurations{
+    implementation{
+        exclude(group = "com.azure", module = "azure-core-http-netty")
+    }
+}
 
 dependencies {
     implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.17"))
-    // azure core
+
+    // azure core -- specifically declare 1.44.0 to get updated reflectionutils
     implementation("com.azure:azure-core:1.44.0")
-    implementation("com.azure:azure-json")
+
     implementation("com.azure:azure-core-http-okhttp")
+
+    // JSON
+    implementation("com.azure:azure-json")
+
     // azure_appconfig
     implementation("com.azure:azure-data-appconfiguration")
 
@@ -84,8 +87,52 @@ dependencies {
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
 
+    // SL4J provides more verbose logging
+    /*
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("org.slf4j:slf4j-simple:2.0.9")
+    */
+
     // testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    constraints {
+        implementation("com.fasterxml.jackson:jackson-bom") {
+            version {
+                require("2.15.2")
+                reject("2.13.5")
+            }
+            because("earlier versions declared as transitive dependencies use android non-compatible factory method")
+        }
+        implementation("com.fasterxml.jackson:jackson-core") {
+            version {
+                require("2.15.2")
+                reject("2.13.5")
+            }
+            because("earlier versions declared as transitive dependencies for azure are not android compatible")
+        }
+        implementation("com.fasterxml.jackson:jackson-databind") {
+            version {
+                require("2.15.2")
+                reject("2.13.5")
+            }
+            because("earlier versions declared as transitive dependencies for azure are not android compatible")
+        }
+        implementation("com.fasterxml.jackson:jackson-dataformat-xml") {
+            version {
+                require("2.15.2")
+                reject("2.13.5")
+            }
+            because("earlier versions declared as transitive dependencies for azure are not android compatible")
+        }
+        implementation("com.fasterxml.jackson:jackson-datatype-jsr310") {
+            version {
+                require("2.15.2")
+                reject("2.13.5")
+            }
+            because("earlier versions declared as transitive dependencies for azure are not android compatible")
+        }
+    }
 }
