@@ -48,9 +48,9 @@ android {
 
 
 dependencies {
-    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
+    implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.17"))
     // azure core
-    implementation("com.azure:azure-core")
+    implementation("com.azure:azure-core:1.44.0")
     implementation("com.azure:azure-json")
     implementation("com.azure:azure-core-http-okhttp")
     // azure_appconfig
@@ -70,7 +70,6 @@ dependencies {
     // azure_messaging_eventhubs
     implementation("com.azure:azure-messaging-eventhubs")
 
-
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -78,9 +77,6 @@ dependencies {
     // xml
     implementation("com.azure:azure-xml:1.0.0-beta.2")
     implementation("stax:stax:1.2.0")
-
-    // For testing issue 1540, https://github.com/microsoftgraph/msgraph-sdk-java/issues/1540
-    implementation("com.azure:azure-identity:1.10.0")
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
     implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1")
