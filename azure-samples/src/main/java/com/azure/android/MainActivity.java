@@ -110,12 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // storage-blob sample block
+                /* this has separate breaking issues in both API 26 and higher API levels
                 try {
                     BasicExample.main(storageAccountName, clientSecretCredential);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
+                */
                 finish();
             } catch (Exception e) {
                 e.printStackTrace();
