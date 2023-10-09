@@ -4,10 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-//import com.azure.data.appconfiguration.implementation.ClientConstants;
 import com.azure.android.appconfiguration.HelloWorld;
 import com.azure.android.appconfiguration.SecretReferenceConfigurationSettingSample;
-//import com.azure.data.appconfiguration.CreateSnapshot;
+//import com.azure.android.appconfiguration.CreateSnapshot;
 import com.azure.android.appconfiguration.WatchFeature;
 import com.azure.android.appconfiguration.ConditionalRequestAsync;
 
@@ -16,7 +15,6 @@ import com.azure.android.keyvault.certificates.ListOperationsKeyvaultCerificates
 import com.azure.android.keyvault.certificates.ManagingDeletedCertificatesAsyncKeyvaultCerificates;
 import com.azure.android.keyvault.keys.HelloWorldKeyvaultKeys;
 import com.azure.android.keyvault.keys.KeyRotationAsyncKeyvaultKeys;
-//import com.azuresamples.keyvault.keys.KeyWrapUnwrapOperations;
 
 import com.azure.android.keyvault.keys.KeyWrapUnwrapOperationsKeyvaultKeys;
 import com.azure.android.keyvault.secrets.HelloWorldKeyvaultSecrets;
@@ -26,9 +24,6 @@ import com.azure.android.storage.BasicExample;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -128,30 +123,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
-    }
-    public static void appendLog(String text)
-    {
-        File logFile = new File("sdcard/log.txt");
-        if (!logFile.exists())
-        {
-            try
-            {
-                logFile.createNewFile();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        try
-        {
-            // BufferedWriter for performance, true to set append to file flag
-            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
-            buf.append(text);
-            buf.newLine();
-            buf.close();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 }

@@ -48,8 +48,7 @@ configurations{
 dependencies {
     implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
     // azure core
-    implementation("com.azure:azure-core") {
-    }
+    implementation("com.azure:azure-core")
     implementation("com.azure:azure-json")
     implementation("com.azure:azure-core-http-okhttp")
 
@@ -85,8 +84,11 @@ dependencies {
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
     implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
 
+    // SL4J provides more verbose logging
+    /*
     implementation("org.slf4j:slf4j-api:2.0.9")
     implementation("org.slf4j:slf4j-simple:2.0.9")
+    */
 
     // testing
     testImplementation("junit:junit:4.13.2")
