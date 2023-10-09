@@ -22,9 +22,11 @@ import com.azure.android.keyvault.keys.KeyWrapUnwrapOperationsKeyvaultKeys;
 import com.azure.android.keyvault.secrets.HelloWorldKeyvaultSecrets;
 import com.azure.android.keyvault.secrets.ListOperationsAsyncKeyvaultSecrets;
 import com.azure.android.keyvault.secrets.ManagingDeletedSecretsKeyvaultSecrets;
+import com.azure.android.resourcemanager.compute.ReadmeSamplesResourceManagerCompute;
 import com.azure.android.storage.BasicExample;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
+import com.azure.android.resourcemanager.compute.ReadmeSamplesResourceManagerCompute;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,76 +48,80 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(() -> {
             try {
 
-                //appconfig sample block
-                HelloWorld.main(appconfigEndpoint, clientSecretCredential);
-                WatchFeature.main(appconfigEndpoint, clientSecretCredential);
-                //CreateSnapshot.main(appconfigEndpoint, clientSecretCredential);
-                SecretReferenceConfigurationSettingSample.main(appconfigEndpoint, clientSecretCredential);
+//                //appconfig sample block
+//                HelloWorld.main(appconfigEndpoint, clientSecretCredential);
+//                WatchFeature.main(appconfigEndpoint, clientSecretCredential);
+//                //CreateSnapshot.main(appconfigEndpoint, clientSecretCredential);
+//                SecretReferenceConfigurationSettingSample.main(appconfigEndpoint, clientSecretCredential);
+//
+//                try {
+//                    ConditionalRequestAsync.main(appconfigEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                //keyvault-keys sample block
+//                try {
+//                    HelloWorldKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
+//
+//
+//                /* commented out pending key-id being obtained to put in this
+//                try {
+//                    KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                */
+//
+//                // keyvault-secrets sample block
+//                try {
+//                    HelloWorldKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                try {
+//                    ListOperationsAsyncKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//                try {
+//                    ManagingDeletedSecretsKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//
+//                //keyvault-certificates sample block
+//
+//                try {
+//                    HelloWorldKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                ListOperationsKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+//                try {
+//                    ManagingDeletedCertificatesAsyncKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
 
-                try {
-                    ConditionalRequestAsync.main(appconfigEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                //resourcemanager-compute sample block
 
-                //keyvault-keys sample block
-                try {
-                    HelloWorldKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                ReadmeSamplesResourceManagerCompute.authenticate();
 
-                KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
-
-
-                /* commented out pending key-id being obtained to put in this
-                try {
-                    KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                */
-
-                // keyvault-secrets sample block
-                try {
-                    HelloWorldKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                try {
-                    ListOperationsAsyncKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                try {
-                    ManagingDeletedSecretsKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-
-                //keyvault-certificates sample block
-
-                try {
-                    HelloWorldKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                ListOperationsKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
-                try {
-                    ManagingDeletedCertificatesAsyncKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                // storage-blob sample block
-                try {
-                    BasicExample.main(storageAccountName, clientSecretCredential);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+//                // storage-blob sample block
+//                try {
+//                    BasicExample.main(storageAccountName, clientSecretCredential);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
 
                 finish();
             } catch (Exception e) {
