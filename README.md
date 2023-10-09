@@ -26,7 +26,7 @@ The following libraries have known issues with Android:
 ## Dependency management
 - Recommend `azure-core` version `1.44.0` or greater.  This adds behaviour to reflection utils that improves Android compatibility
 - Recommend `com.fasterxml.jackson:jackson-core`, `com.fasterxml.jackson:jackson-databind`, `com.fasterxml.jackson:jackson-dataformat-xml`, `com.fasterxml.jackson:jackson-datatype-jsr310` version `2.15.0` or greater for transitive dependencies.  An example of how to do this is found in the build.gradle.kts file in the android samples.
-- Requires an external StAX dependency.
+- The use of Jackson also requires an external StAX dependency.
 
 ## Credential management on Android
 - The method used in the samples to pass credentials from System Environment Variables to the sample app on a device or emulator via the BuildConfig class is not suitable for production or use in real apps.  There is a risk of keys being exposed, data in BuildConfig is stored in plaintext in the APK on the device.  
