@@ -3,6 +3,8 @@
 
 package com.azure.android.keyvault.certificates;
 
+import android.util.Log;
+
 import com.azure.core.util.polling.LongRunningOperationStatus;
 import com.azure.core.util.polling.PollResponse;
 import com.azure.core.util.polling.SyncPoller;
@@ -34,6 +36,7 @@ public class HelloWorldKeyvaultCerificates {
      * @throws IllegalArgumentException when invalid key vault endpoint is passed.
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      */
+    private static final String TAG = "HelloKeyCert";
     public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws InterruptedException, IllegalArgumentException {
         /* Instantiate a CertificateClient that will be used to call the service. Notice that the client is using
         default Azure credentials. For more information on this and other types of credentials, see this document:
@@ -68,8 +71,8 @@ public class HelloWorldKeyvaultCerificates {
         // Let's get the latest version of the certificate from the key vault.
         KeyVaultCertificate certificate = certificateClient.getCertificate("certificateName");
 
-        System.out.printf("Certificate is returned with name %s and secret id %s \n",
-            certificate.getProperties().getName(), certificate.getSecretId());
+        Log.i(TAG, String.format("Certificate is returned with name %s and secret id %s \n",
+            certificate.getProperties().getName(), certificate.getSecretId()));
 
         // After some time, we need to disable the certificate temporarily, so we update the enabled status of the
         // certificate. The update method can be used to update the enabled status of the certificate.
@@ -77,18 +80,18 @@ public class HelloWorldKeyvaultCerificates {
 
         KeyVaultCertificate updatedCertificate = certificateClient.updateCertificateProperties(certificate.getProperties());
 
-        System.out.printf("Certificate's updated enabled status is %s \n", updatedCertificate.getProperties().isEnabled());
+        Log.i(TAG, String.format("Certificate's updated enabled status is %s \n", updatedCertificate.getProperties().isEnabled()));
 
         // Let's create a certificate issuer.
         CertificateIssuer issuer = new CertificateIssuer("myIssuer", "Test");
         CertificateIssuer myIssuer = certificateClient.createIssuer(issuer);
 
-        System.out.printf("Issuer created with name %s and provider %s", myIssuer.getName(), myIssuer.getProvider());
+        Log.i(TAG, String.format("Issuer created with name %s and provider %s", myIssuer.getName(), myIssuer.getProvider()));
 
         // Let's fetch the issuer we just created from the key vault.
         myIssuer = certificateClient.getIssuer("myIssuer");
 
-        System.out.printf("Issuer retrieved with name %s and provider %s", myIssuer.getName(), myIssuer.getProvider());
+        Log.i(TAG, String.format("Issuer retrieved with name %s and provider %s", myIssuer.getName(), myIssuer.getProvider()));
 
         // Let's create a certificate signed by our issuer.
         certificateClient.beginCreateCertificate("myCertificate",
@@ -98,8 +101,8 @@ public class HelloWorldKeyvaultCerificates {
         // Let's get the latest version of our certificate from the key vault.
         KeyVaultCertificate myCert = certificateClient.getCertificate("myCertificate");
 
-        System.out.printf("Certificate is returned with name %s and secret id %s \n", myCert.getProperties().getName(),
-            myCert.getSecretId());
+        Log.i(TAG, String.format("Certificate is returned with name %s and secret id %s \n", myCert.getProperties().getName(),
+            myCert.getSecretId()));
 
         // The certificates and issuers are no longer needed, need to delete it from the key vault.
         SyncPoller<DeletedCertificate, Void> deletedCertificatePoller =
@@ -107,8 +110,8 @@ public class HelloWorldKeyvaultCerificates {
         // Deleted certificate is accessible as soon as polling beings.
         PollResponse<DeletedCertificate> pollResponse = deletedCertificatePoller.poll();
 
-        System.out.printf("Deleted certificate with name %s and recovery id %s", pollResponse.getValue().getName(),
-            pollResponse.getValue().getRecoveryId());
+        Log.i(TAG, String.format("Deleted certificate with name %s and recovery id %s", pollResponse.getValue().getName(),
+            pollResponse.getValue().getRecoveryId()));
 
         deletedCertificatePoller.waitForCompletion();
 
@@ -117,15 +120,15 @@ public class HelloWorldKeyvaultCerificates {
         // Deleted certificate is accessible as soon as polling beings.
         PollResponse<DeletedCertificate> deletePollResponse = deletedCertPoller.poll();
 
-        System.out.printf("Deleted certificate with name %s and recovery id %s", deletePollResponse.getValue().getName(),
-            deletePollResponse.getValue().getRecoveryId());
+        Log.i(TAG, String.format("Deleted certificate with name %s and recovery id %s", deletePollResponse.getValue().getName(),
+            deletePollResponse.getValue().getRecoveryId()));
 
         deletedCertificatePoller.waitForCompletion();
 
         CertificateIssuer deleteCertificateIssuer = certificateClient.deleteIssuer("myIssuer");
 
-        System.out.printf("Certificate issuer is permanently deleted with name %s and provider is %s \n",
-            deleteCertificateIssuer.getName(), deleteCertificateIssuer.getProvider());
+        Log.i(TAG, String.format("Certificate issuer is permanently deleted with name %s and provider is %s \n",
+            deleteCertificateIssuer.getName(), deleteCertificateIssuer.getProvider()));
 
         // To ensure the certificate is deleted server-side.
         Thread.sleep(30000);
