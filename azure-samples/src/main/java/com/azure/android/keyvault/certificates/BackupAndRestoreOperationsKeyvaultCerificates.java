@@ -3,6 +3,8 @@
 
 package com.azure.android.keyvault.certificates;
 
+import android.util.Log;
+
 import com.azure.core.util.Context;
 import com.azure.core.util.polling.LongRunningOperationStatus;
 import com.azure.core.util.polling.PollResponse;
@@ -40,6 +42,7 @@ public class BackupAndRestoreOperationsKeyvaultCerificates {
      * @throws InterruptedException when the thread is interrupted in sleep mode.
      * @throws IOException when writing backup to file is unsuccessful.
      */
+    private static final String TAG ="BackupRestoreCert";
     public static void main(String endpoint, ClientSecretCredential clientSecretCredential) throws IOException, InterruptedException, IllegalArgumentException {
         /* Instantiate a CertificateClient that will be used to call the service. Notice that the client is using
         default Azure credentials. For more information on this and other types of credentials, see this document:
@@ -75,7 +78,7 @@ public class BackupAndRestoreOperationsKeyvaultCerificates {
         String backupFilePath = "YOUR_BACKUP_FILE_PATH";
         byte[] certificateBackup = certificateClient.backupCertificate("certificateName");
 
-        System.out.printf("Backed up certificate with back up blob length %d", certificateBackup.length);
+        Log.i(TAG, String.format("Backed up certificate with back up blob length %d", certificateBackup.length));
 
         writeBackupToFile(certificateBackup, backupFilePath);
 
@@ -85,8 +88,8 @@ public class BackupAndRestoreOperationsKeyvaultCerificates {
         // Deleted Certificate is accessible as soon as polling beings.
         PollResponse<DeletedCertificate> pollResponse = deletedCertificatePoller.poll();
 
-        System.out.printf("Deleted certificate with name %s and recovery id %s", pollResponse.getValue().getName(),
-            pollResponse.getValue().getRecoveryId());
+        Log.i(TAG, String.format("Deleted certificate with name %s and recovery id %s", pollResponse.getValue().getName(),
+            pollResponse.getValue().getRecoveryId()));
 
         deletedCertificatePoller.waitForCompletion();
 
@@ -104,8 +107,8 @@ public class BackupAndRestoreOperationsKeyvaultCerificates {
         byte[] backupFromFile = Files.readAllBytes(new File(backupFilePath).toPath());
         KeyVaultCertificate restoredCertificate = certificateClient.restoreCertificateBackup(backupFromFile);
 
-        System.out.printf(" Restored certificate with name %s and id %s", restoredCertificate.getProperties().getName(),
-            restoredCertificate.getProperties().getId());
+        Log.i(TAG, String.format("Restored certificate with name %s and id %s", restoredCertificate.getProperties().getName(),
+            restoredCertificate.getProperties().getId()));
     }
 
     private static void writeBackupToFile(byte[] bytes, String filePath) {
@@ -121,7 +124,7 @@ public class BackupAndRestoreOperationsKeyvaultCerificates {
             OutputStream os = new FileOutputStream(file);
             os.write(bytes);
 
-            System.out.println("Successfully wrote backup to file.");
+            Log.i(TAG, "Successfully wrote backup to file.");
 
             // Close the file
             os.close();
