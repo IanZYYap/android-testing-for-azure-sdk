@@ -1,4 +1,4 @@
-package com.azure.android.compattesting;
+package com.azure.android;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
@@ -27,7 +27,7 @@ import javax.xml.stream.XMLStreamException;
  * necessary libraries and methods.
  */
 @RunWith(AndroidJUnit4.class)
-public class AzureXmlInstrumentedTests {
+public class AzureXmlCompatTests {
     // TODO: Update comments and remove assertThrows() once AzureXML is updated past 1.0.0-beta.2
     /**
      * Tests whether DefaultXMLReader can make an XmlReader. Will throw NoSuchMethodError because

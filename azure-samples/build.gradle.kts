@@ -47,8 +47,10 @@ configurations{
 
 dependencies {
     implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.17"))
+
     // azure core -- specifically declare 1.44.0 to get updated reflectionutils
     implementation("com.azure:azure-core:1.44.0")
+
     implementation("com.azure:azure-core-http-okhttp")
 
     // JSON
@@ -67,6 +69,9 @@ dependencies {
 
     // azure_identity
     implementation("com.azure:azure-identity")
+
+    // azure_messaging_eventhubs
+    implementation("com.azure:azure-messaging-eventhubs")
 
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")

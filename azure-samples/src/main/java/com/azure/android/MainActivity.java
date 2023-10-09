@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.azure.android.appconfiguration.HelloWorld;
 import com.azure.android.appconfiguration.SecretReferenceConfigurationSettingSample;
-//import com.azure.android.appconfiguration.CreateSnapshot;
 import com.azure.android.appconfiguration.WatchFeature;
 import com.azure.android.appconfiguration.ConditionalRequestAsync;
 
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         final String storageAccountName = "androidazsdkstorage";
         Thread thread = new Thread(() -> {
             try {
-
                 //appconfig sample block
                 HelloWorld.main(appconfigEndpoint, clientSecretCredential);
                 WatchFeature.main(appconfigEndpoint, clientSecretCredential);
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
-
 
                 /* commented out pending key-id being obtained to put in this
                 try {
