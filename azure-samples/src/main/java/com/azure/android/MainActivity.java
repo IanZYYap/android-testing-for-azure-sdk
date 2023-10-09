@@ -9,21 +9,17 @@ import com.azure.android.appconfiguration.SecretReferenceConfigurationSettingSam
 import com.azure.android.appconfiguration.WatchFeature;
 import com.azure.android.appconfiguration.ConditionalRequestAsync;
 
-import com.azure.android.keyvault.certificates.HelloWorldKeyvaultCerificates;
-import com.azure.android.keyvault.certificates.ListOperationsKeyvaultCerificates;
-import com.azure.android.keyvault.certificates.ManagingDeletedCertificatesAsyncKeyvaultCerificates;
+import com.azure.android.keyvault.certificates.HelloWorldKeyvaultCertificates;
+import com.azure.android.keyvault.certificates.ListOperationsKeyvaultCertificates;
+import com.azure.android.keyvault.certificates.ManagingDeletedCertificatesAsyncKeyvaultCertificates;
 import com.azure.android.keyvault.keys.HelloWorldKeyvaultKeys;
 import com.azure.android.keyvault.keys.KeyRotationAsyncKeyvaultKeys;
 
-import com.azure.android.keyvault.keys.KeyWrapUnwrapOperationsKeyvaultKeys;
 import com.azure.android.keyvault.secrets.HelloWorldKeyvaultSecrets;
 import com.azure.android.keyvault.secrets.ListOperationsAsyncKeyvaultSecrets;
 import com.azure.android.keyvault.secrets.ManagingDeletedSecretsKeyvaultSecrets;
-import com.azure.android.storage.BasicExample;
 import com.azure.identity.ClientSecretCredential;
 import com.azure.identity.ClientSecretCredentialBuilder;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 //keyvault-certificates sample block
 
                 try {
-                    HelloWorldKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+                    HelloWorldKeyvaultCertificates.main(keyvaultEndpoint, clientSecretCredential);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                ListOperationsKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+                ListOperationsKeyvaultCertificates.main(keyvaultEndpoint, clientSecretCredential);
                 try {
-                    ManagingDeletedCertificatesAsyncKeyvaultCerificates.main(keyvaultEndpoint, clientSecretCredential);
+                    ManagingDeletedCertificatesAsyncKeyvaultCertificates.main(keyvaultEndpoint, clientSecretCredential);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

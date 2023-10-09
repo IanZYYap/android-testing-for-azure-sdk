@@ -28,7 +28,6 @@ import javax.xml.stream.XMLStreamException;
  */
 @RunWith(AndroidJUnit4.class)
 public class AzureXmlCompatTests {
-    // TODO: Update comments and remove assertThrows() once AzureXML is updated past 1.0.0-beta.2
     /**
      * Tests whether DefaultXMLReader can make an XmlReader. Will throw NoSuchMethodError because
      * the StAX library is missing XmlInputFactory.newFactory() which is in the JDK, it only has
@@ -36,16 +35,12 @@ public class AzureXmlCompatTests {
      */
     @Test
     public void defaultXmlReaderTest() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertThrows(NoSuchMethodError.class, () -> {
-            try {
-                XmlReader reader = DefaultXmlReader.fromString("");
-                assertNotNull(reader);
-            } catch (XMLStreamException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            XmlReader reader = DefaultXmlReader.fromString("");
+            assertNotNull(reader);
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -55,15 +50,11 @@ public class AzureXmlCompatTests {
      */
     @Test
     public void defaultXmlWriterTest() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertThrows(NoSuchMethodError.class, () -> {
-            try {
-                XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
-                assertNotNull(writer);
-            } catch (XMLStreamException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            XmlWriter writer = DefaultXmlWriter.toStream(new ByteArrayOutputStream());
+            assertNotNull(writer);
+        } catch (XMLStreamException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

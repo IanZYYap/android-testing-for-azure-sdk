@@ -8,7 +8,6 @@ import android.util.Log;
 import com.azure.core.util.polling.LongRunningOperationStatus;
 import com.azure.core.util.polling.SyncPoller;
 import com.azure.identity.ClientSecretCredential;
-import com.azure.identity.ClientSecretCredentialBuilder;
 import com.azure.security.keyvault.certificates.CertificateClient;
 import com.azure.security.keyvault.certificates.CertificateClientBuilder;
 import com.azure.security.keyvault.certificates.models.CertificateContact;
@@ -27,7 +26,7 @@ import java.util.Map;
 /**
  * Sample demonstrates how to perform list operation on certificates, certificate issuers and certificate contacts  in the key vault.
  */
-public class ListOperationsKeyvaultCerificates {
+public class ListOperationsKeyvaultCertificates {
     private static final String TAG = "CertListOps";
 
     /**
