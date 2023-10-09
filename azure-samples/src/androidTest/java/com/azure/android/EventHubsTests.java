@@ -1,10 +1,13 @@
 package com.azure.android;
 
+import static com.azure.android.eventhubs.EventProcessorClientCheckpointing.onEventBatchReceived;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static java.nio.charset.StandardCharsets.UTF_8;
+
+import android.util.Log;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -279,5 +282,45 @@ public class EventHubsTests {
         // Continue to perform other tasks while the processor is running in the background.
         Thread.sleep(TimeUnit.SECONDS.toMillis(10));
         eventProcessorClient.stop();
+    }
+
+    @Test
+    public void EventProcessorClientCheckpointingTest() throws InterruptedException {
+        final int NUMBER_OF_EVENTS_BEFORE_CHECKPOINTING = 200;
+        final int MAX_BATCH_SIZE = 50;
+        Consumer<ErrorContext> processError = errorContext -> {
+            fail(String.format("Error while processing %s, %s, %s, %s", errorContext.getPartitionContext().getEventHubName(),
+                    errorContext.getPartitionContext().getConsumerGroup(),
+                    errorContext.getPartitionContext().getPartitionId(),
+                    errorContext.getThrowable().getMessage()));
+        };
+
+
+        // Create an EventProcessorClient that processes 50 events in a batch or waits up to a maximum of 30 seconds
+        // before processing any available events up to that point. The batch could be empty if no events are received
+        // within that 30 seconds window.
+        //
+        EventProcessorClient eventProcessorClient = new EventProcessorClientBuilder()
+                .consumerGroup(EventHubClientBuilder.DEFAULT_CONSUMER_GROUP_NAME)
+                .credential(eventhubsNamespace, eventhubsName,
+                        clientSecretCredential)
+                .processEventBatch(
+                        batchContext -> onEventBatchReceived(batchContext, NUMBER_OF_EVENTS_BEFORE_CHECKPOINTING),
+                        MAX_BATCH_SIZE, Duration.ofSeconds(30))
+                .processError(processError)
+                .checkpointStore(new SampleCheckpointStore())
+                .buildEventProcessorClient();
+
+        eventProcessorClient.start();
+
+        // Continue to perform other tasks while the processor is running in the background.
+        //
+        // eventProcessorClient.start() is a non-blocking call, the program will proceed to the next line of code after
+        // setting up and starting the processor.
+        Thread.sleep(TimeUnit.MINUTES.toMillis(10));
+
+
+        eventProcessorClient.stop();
+
     }
 }
