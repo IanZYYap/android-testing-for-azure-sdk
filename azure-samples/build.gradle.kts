@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
 plugins {
     id("com.android.application")
 }
@@ -41,41 +39,33 @@ android {
         }
     }
 }
+configurations{
+    implementation{
+        exclude(group = "com.azure", module = "azure-core-http-netty")
+    }
+}
 
 dependencies {
     implementation(project.dependencies.platform("com.azure:azure-sdk-bom:1.2.16"))
     // azure core
     implementation("com.azure:azure-core") {
-        exclude(group = "com.azure", module = "azure-core-http-netty")
     }
     implementation("com.azure:azure-json")
     implementation("com.azure:azure-core-http-okhttp")
 
     // azure_appconfig
-    implementation("com.azure:azure-data-appconfiguration"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-data-appconfiguration")
 
     // azure_keyvault
-    implementation("com.azure:azure-security-keyvault-secrets"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
-    implementation("com.azure:azure-security-keyvault-keys"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
-    implementation("com.azure:azure-security-keyvault-certificates"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-security-keyvault-secrets")
+    implementation("com.azure:azure-security-keyvault-keys")
+    implementation("com.azure:azure-security-keyvault-certificates")
 
     // azure_storage
-    implementation("com.azure:azure-storage-blob"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-storage-blob")
 
     // azure_identity
-    implementation("com.azure:azure-identity"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-identity")
 
     // android
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -90,14 +80,10 @@ dependencies {
     implementation("com.azure:azure-core:1.43.0")
 
     //For testing issue 35756, https://github.com/Azure/azure-sdk-for-java/issues/35756
-    implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-ai-translation-text:1.0.0-beta.1")
 
     //For testing issue 35719, https://github.com/Azure/azure-sdk-for-java/issues/35719
-    implementation("com.azure:azure-ai-openai:1.0.0-beta.2"){
-        exclude(group = "com.azure", module = "azure-core-http-netty")
-    }
+    implementation("com.azure:azure-ai-openai:1.0.0-beta.2")
 
     implementation("org.slf4j:slf4j-api:2.0.9")
     implementation("org.slf4j:slf4j-simple:2.0.9")

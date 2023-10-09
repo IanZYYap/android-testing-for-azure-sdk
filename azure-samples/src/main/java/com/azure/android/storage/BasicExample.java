@@ -66,22 +66,12 @@ public class BasicExample {
         BlobContainerClient blobContainerClient = storageClient.getBlobContainerClient("myjavacontainerbasic" + System.currentTimeMillis());
         Log.i(TAG, String.format("Got BlobContainerClient %s", blobContainerClient.getBlobContainerName()));
 
-        try {
-            PagedIterable<BlobContainerItem> blobContainerList = storageClient.listBlobContainers(new ListBlobContainersOptions(), Duration.ofMinutes(1));
-            blobContainerList.toString();
-            Iterator<BlobContainerItem> iterator = blobContainerList.iterator();
-            while (iterator.hasNext()) {
-                String temp = iterator.next().getName();
-                Log.i(TAG, temp);
-            }
-        } catch (RuntimeException e) {
-            Log.i(TAG, "timeout listing blob containers");
-        }
         /*
          * Create a container in Storage blob account.
          */
         blobContainerClient.create();
         Log.i(TAG, "blobContainerClient Created");
+
         /*
          * Create a client that references a to-be-created blob in your Azure Storage account's container.
          * This returns a BlockBlobClient object that wraps the blob's endpoint, credential and a request pipeline
@@ -137,9 +127,9 @@ public class BasicExample {
         /*
          * List the blob(s) in our container.
          */
-        // This block is causing the app to hang.
+        // This block is causing the app to hang so will normally time out.
         try {
-            blobContainerClient.listBlobs(new ListBlobsOptions(), Duration.ofSeconds(90))
+            blobContainerClient.listBlobs(new ListBlobsOptions(), Duration.ofSeconds(30))
                     .forEach(blobItem -> Log.i(TAG, "Blob name: " + blobItem.getName()));
         } catch (RuntimeException e) {
             Log.i(TAG, "list blobs action exceeded 30 seconds, continuing...");

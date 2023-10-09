@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         final String storageAccountName = "androidazsdkstorage";
         Thread thread = new Thread(() -> {
             try {
-/*
+
                 //appconfig sample block
                 HelloWorld.main(appconfigEndpoint, clientSecretCredential);
                 WatchFeature.main(appconfigEndpoint, clientSecretCredential);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 KeyRotationAsyncKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
 
-*/
+
                 /* commented out pending key-id being obtained to put in this
                 try {
                     KeyWrapUnwrapOperationsKeyvaultKeys.main(keyvaultEndpoint, clientSecretCredential);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
                 */
-/*
+
                 // keyvault-secrets sample block
                 try {
                     HelloWorldKeyvaultSecrets.main(keyvaultEndpoint, clientSecretCredential);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-*/
+
                 // storage-blob sample block
                 try {
                     BasicExample.main(storageAccountName, clientSecretCredential);
