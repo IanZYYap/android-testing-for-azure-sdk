@@ -1,4 +1,7 @@
 # Android Testing for Azure SDK for Java
+
+This repository is out of date, see https://github.com/Azure/azure-sdk-for-java/pull/36801 for the most recent version.
+
 The purpose of this project is to improve Android support for the Azure SDK, by determining a baseline level of compatibility at API levels 26 and above. It is currently in-progress, with many service libraries yet to be investigated.
 Currently, Azure SDK services are not guaranteed to work in Android, though limited sampling at API levels >= 26 has shown that some services should be relatively compatible with Android.
 The project structure currently contains:
