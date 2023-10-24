@@ -59,3 +59,4 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
+
